@@ -19,6 +19,7 @@ BGSOUND_STATUS=$(defaults read com.apple.ComfortSounds "comfortSoundsEnabled")
 function signal_heard() {
   echo "Reloading heard daemon..."
   pkill -HUP 'heard'
+  return 0
 }
 
 function set_bgsound() {
