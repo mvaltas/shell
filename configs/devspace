@@ -1,0 +1,7 @@
+# vim: ft=zsh
+
+alias ds='devspace'
+
+function dslist() {
+  devspace list deployments
+}
