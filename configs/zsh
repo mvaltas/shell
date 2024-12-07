@@ -23,7 +23,4 @@ bindkey "^X^E" edit-command-line
 # default to emacs key mapping (poetry shell/venv does not load it by default ¯\_(ツ)_/¯ )
 bindkey -e
 
-# load nodenv if installed
-whence nodenv &> /dev/null && eval "$(nodenv init -)"
-
 autoload -U compinit && compinit
