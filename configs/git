@@ -45,43 +45,18 @@ git-author() {
   esac
 }
 
-git-ssh-key() {
-  arg=${@}
-  case ${arg} in
-    show)
-      echo ${GIT_SSH_COMMAND##*/}
-    ;;
-    list)
-      find ${HOME}/.ssh/ -name '*-github' -exec basename {} \;
-    ;;
-    help|-h|-?)
-      echo "git-ssh-key [show|list|KEY]"
-      echo "where KEY is the key name minus the -github suffix"
-    ;;
-    *)
-      # if arg was given see if it can be found as a github key
-      [[ -n ${arg} ]] && private_key=$(ls -1 ${HOME}/.ssh/${arg}-github)
-
-      # we found a key with arg, so we set it up
-      if [[ -n ${private_key} ]]; then
-        export GIT_SSH_COMMAND="ssh -i ${private_key}"
-      fi
-      git-ssh-key show
-    ;;
-  esac
-}
-
-git-ssh-debug() {
+# turn debug flags on/off for git commands
+git-debug() {
   if [[ ${GIT_SSH_COMMAND} =~ "ssh -v.*" ]]; then
-    echo "Disabling git ssh debug"
-    export GIT_SSH_COMMAND=${GIT_SSH_COMMAND:s/ssh -v/ssh/}
+    echo "Disabling git debug"
+    unset GIT_TRACE
+    unset GIT_TRACE_SETUP
+    unset GIT_SSH_COMMAND
   else
-    echo "Enabling git ssh debug"
-    if [[ -n ${GIT_SSH_COMMAND} ]]; then
-      export GIT_SSH_COMMAND=${GIT_SSH_COMMAND:s/ssh/ssh -v/}
-    else
-      export GIT_SSH_COMMAND="ssh -v"
-    fi
+    echo "Enabling git debug"
+    export GIT_TRACE=true 
+    export GIT_TRACE_SETUP=true 
+    export GIT_SSH_COMMAND="ssh -v"
   fi
 }
 
