@@ -4,7 +4,7 @@
 # shell ask
 shask() {
   local promtp="$*"
-  local response=$(llm -m g4-mini -t shell "${promtp}")
+  local response=$(llm -m gpt-4o-mini -t shell "${promtp}")
   if [[ -z ${response} ]]; then
     echo "No response from llm"
   else
