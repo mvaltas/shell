@@ -7,7 +7,12 @@ local opt = vim.opt  -- access to options
 local keymap = vim.keymap -- access to keymaps
 
 -- colors
-cmd 'colorscheme torte'
+g.edge_style = 'aura'
+g.edge_colors_override = { 
+  bg0 = { '#171717', '235' },
+}
+
+cmd 'colorscheme edge'
 
 -- plugin management
 cmd 'packadd paq-nvim'               -- load the package manager
@@ -21,6 +26,7 @@ require "paq" {
     'nvim-telescope/telescope.nvim';  -- File finder w/ popup window and preview support
     'nvim-treesitter/nvim-treesitter';-- Configuration and abstraction layer
     'github/copilot.vim';             -- GitHub Copilot
+    'sainnhe/edge';                   -- Edge color scheme
 }
 
 -- general editor options

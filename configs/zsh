@@ -6,7 +6,7 @@ function show-all-colors {
     printf "${TAG}%003d " ${color}
 
     # break line every 10 colors
-    (( ${color} % 10 == 0 )) && echo
+    (( ${color} % 10 == 9 )) && echo
   done
 }
 
