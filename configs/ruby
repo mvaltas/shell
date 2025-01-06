@@ -1,6 +1,4 @@
 # Ruby configurations for shell
 
-# setup frum if it is installed
-whence frum 1> /dev/null && eval "$(frum init)"
-
-alias rbenv="echo 'Did you mean frum?'"
+# setup rbenv if it is installed
+whence rbenv 1> /dev/null && eval "$(rbenv init - --no-rehash zsh)"
