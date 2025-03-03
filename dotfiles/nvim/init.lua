@@ -6,14 +6,6 @@ local g   = vim.g    -- a table to access global variables
 local opt = vim.opt  -- access to options
 local keymap = vim.keymap -- access to keymaps
 
--- colors
-g.edge_style = 'aura'
-g.edge_colors_override = { 
-  bg0 = { '#171717', '235' },
-}
-
-cmd 'colorscheme edge'
-
 -- plugin management
 cmd 'packadd paq-nvim'               -- load the package manager
 require "paq" {
@@ -33,6 +25,14 @@ require "paq" {
     'nvim-telescope/telescope.nvim';  -- File finder w/ popup window and preview support
     'nvim-treesitter/nvim-treesitter';-- Configuration and abstraction layer
 }
+
+-- colors
+g.edge_style = 'aura'
+g.edge_colors_override = { 
+  bg0 = { '#171717', '235' },
+}
+cmd 'colorscheme edge'
+
 
 -- general editor options
 opt.expandtab = true                                    -- Use spaces instead of tabs
