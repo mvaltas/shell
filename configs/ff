@@ -12,7 +12,7 @@ _track_files() {
 
 myfind() {
   # TODO: add --color always 
-  _track_files < <(fd --unrestricted --color always --no-ignore --ignore-case --strip-cwd-prefix --type "${1}" "${2}")
+  _track_files < <(fd --unrestricted --color=always --ignore-case --strip-cwd-prefix --type "${1}" "${2}")
 }
 
 lm() {
@@ -83,7 +83,7 @@ fn() {
   fi
 }
 
-# shortcuts for the first three found files
+# shortcuts for the first found files
 fn1() { fn 1; }
 fn2() { fn 2; }
 fn3() { fn 3; }
@@ -115,12 +115,12 @@ _grep_track_files() {
   done
 }
 
-ggr() {
-  _grep_track_files < <(fgrep --color=always -RIn ${@} *)
+grr() {
+  _grep_track_files < <(rg --no-ignore --color=always ${@})
 }
 
 gr() {
-  _grep_track_files < <(git grep --color=always -n ${@} )
+  _grep_track_files < <(rg --color=always ${@})
 }
 
 ff() { myfind "f" "$1"; } # find file
