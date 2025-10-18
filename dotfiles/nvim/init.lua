@@ -8,14 +8,6 @@ local keymap = vim.keymap -- access to keymaps
 local homedir = os.getenv('HOME') -- User home directory
 local projectdir = string.gsub("HOME/Projects", "HOME", homedir) -- User Projects dir
 
--- colors
-g.edge_style = 'aura'
-g.edge_colors_override = { 
-  bg0 = { '#171717', '235' },
-}
-
-cmd 'colorscheme edge'
-
 -- plugin management
 cmd 'packadd paq-nvim'               -- load the package manager
 require "paq" {
@@ -40,6 +32,14 @@ require "paq" {
     -- AI
     'augmentcode/augment.vim';         -- Augment AI for neovim
 }
+
+-- colors
+g.edge_style = 'aura'
+g.edge_colors_override = { 
+  bg0 = { '#171717', '235' },
+}
+cmd 'colorscheme edge'
+
 
 -- general editor options
 opt.expandtab = true                                    -- Use spaces instead of tabs
