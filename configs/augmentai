@@ -1,0 +1,2 @@
+# Reuse the whole Projects dir as workspace
+alias auggie="auggie --continue --workspace-root ${HOME}/Projects"
