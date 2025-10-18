@@ -1,6 +1,6 @@
 # vim: ft=gitconfig
 [user]
-  name = Marco Valtas
+	name = Marco Valtas
   useConfigOnly = true # don't guess email
 [color]
   ui = auto
@@ -20,6 +20,9 @@
   aam = add --update
   co = checkout
   #####################
+  # brannch shortcuts
+  nb = checkout -B
+  #####################
   # explore repo changes
   dc = diff --word-diff --cached
   di = diff --word-diff
@@ -30,6 +33,7 @@
   ####################
   # explore repo logs
   l  = log --graph --abbrev-commit --date=relative
+  lg = log -G
   ll = log --graph --date=relative --name-status --pretty
   llo = log --graph --abbrev-commit --date=relative --name-status master..origin/master
   lm = ls-files --modified
