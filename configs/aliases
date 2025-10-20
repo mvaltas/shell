@@ -48,3 +48,6 @@ alias functions='print -l ${(ok)functions}'
 
 # list all TCP listening ports
 alias ports='lsof -iTCP -sTCP:LISTEN -n -P'
+
+# always use long jobs output
+alias jobs='jobs -l'
