@@ -21,4 +21,14 @@ utils.map = function (mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
+-- require all lua files in 'lua/' with 'directory'
+utils.load_all = function (directory)
+  local path = vim.fn.stdpath("config") .. "/lua/" .. directory
+  local files = vim.fn.readdir(path, [[v:val =~ '\.lua$']])
+  for _, file in ipairs(files) do
+    require(directory .. "." .. file:gsub("%.lua$", ""))
+  end
+end
+
+-- returns this table of functions
 return utils
