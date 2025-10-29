@@ -19,8 +19,8 @@ vim.keymap.set('n','<leader>dc',':Telescope treesitter default_text=:class:<cr>'
 vim.keymap.set('n','<leader>di',':Telescope treesitter default_text=:import:<cr>', map_opts)    -- import only
 
 -- telescope greps
-vim.keymap.set('n','<leader>l',':Telescope live_grep<cr>', map_opts)       -- l for live_grep
-vim.keymap.set('n','<leader>gr',':Telescope grep_string<cr>', map_opts) -- '\gr' current word into Telescope grep_string
+vim.keymap.set('n','<leader>gl',':Telescope live_grep<cr>', map_opts)   -- gl for live_grep
+vim.keymap.set('n','<leader>gr',':Telescope grep_string<cr>', map_opts) -- gr current word into Telescope grep_string
 
 -- telescope configuration
 local actions = require('telescope.actions')
@@ -28,7 +28,7 @@ require('telescope').setup{
   defaults = {
     path_display = {
       'shorten',
-      'absolute',
+      'filename_first',
     },
     mappings = {
       i = {
