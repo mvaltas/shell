@@ -2,3 +2,6 @@
 
 # shorcut for the shorcut tools
 alias cli="devcli"
+
+# often I need to checkout main
+alias main="devcli git main"
