@@ -68,15 +68,3 @@ vim.cmd 'command! -nargs=0 EInit :e ~/.config/nvim/init.lua'
 
 -- CleanTermBuffers: clean all terminal buffers
 vim.cmd "command! -nargs=0 CleanTermBuffers :silent! bufdo! if &buftype == 'terminal' | bdelete | endif"
-
--- changes in colors
-vim.api.nvim_create_autocmd('ColorScheme', { 
-  pattern = '*', 
-  command='highlight LineNr guifg=Grey ctermfg=Grey'
-})
-vim.api.nvim_create_autocmd('ColorScheme', { 
-  pattern = '*', 
-  command='highlight TelescopeMatching guifg=Red ctermfg=Red'
-})
--- end changes in colors
-
