@@ -37,12 +37,16 @@ local function cse(cmd)
       end)
     end
   })
-  -- ESC to close terminal window
-  vim.keymap.set('n', '<Esc>', function()
+
+  local close = function()
     if vim.api.nvim_win_is_valid(win) then
       vim.api.nvim_win_close(win, true)
     end
-  end, { buffer = buf })
+  end
+
+  -- ESC or Enter will close the window
+  vim.keymap.set('n', '<Esc>', close, { buffer = buf })
+  vim.keymap.set('n', '<CR>', close, { buffer = buf })
 end
 
 -- the function that calls CSE
