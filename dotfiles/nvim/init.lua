@@ -7,8 +7,9 @@ vim.cmd "packadd paq-nvim"               -- load the package manager
 require "paq" {
     "savq/paq-nvim";                  -- Let Paq manage itself
 
-    -- Colorscheme
-    "folke/tokyonight.nvim";          -- Purpleish color scheme
+    -- Colorschemes
+    "sainnhe/edge";
+    "sainnhe/sonokai";
 
     -- Feature focused plugins
     "tpope/vim-surround";             -- handle surroundings ()[]"'{} as text objects
@@ -28,9 +29,6 @@ require "paq" {
     -- AI
     "augmentcode/augment.vim";         -- lua/config/augment.lua
 }
-
--- colors
-vim.cmd.colorscheme "tokyonight-night"
 
 -- general editor options
 vim.opt.expandtab = true                                    -- Use spaces instead of tabs
