@@ -1,42 +1,67 @@
-#!/bin/zsh
+#!/usr/bin/env python
+import os
+import shutil
+import zipfile
+from datetime import datetime
 
-# Folder where the files are located
-FOLDER_PATH="${HOME}/Downloads"
+# Configurable list of files
+FILE_LIST = ["accountdata", "save", "save2", "save3", "save4"]
 
-# Destination folder in Documents
-DEST_FOLDER="${HOME}/Dropbox/Saves/NMS"
+# Paths
+USER_HOME = os.path.expanduser("~")
+SOURCE_DIR = os.path.join(USER_HOME, "Downloads")
+DEST_DIR = os.path.join(USER_HOME, "Dropbox", "Saves", "NMS")
 
-typeset -a save_files=(
-    "_WinAppDataRoaming_HelloGames_NMS_st_76561198066368212_mf_save.hg"
-    "_WinAppDataRoaming_HelloGames_NMS_st_76561198066368212_mf_save2.hg"
-    "_WinAppDataRoaming_HelloGames_NMS_st_76561198066368212_save.hg"
-    "_WinAppDataRoaming_HelloGames_NMS_st_76561198066368212_save2.hg")
+# File patterns
+PREFIX = "_WinAppDataRoaming_HelloGames_NMS_st_76561198066368212_"
+SUFFIX = ".hg"
+MF_PREFIX = "mf_"
 
-# check if all four files exist
-for file in $save_files; do
-    if [[ ! -f "${FOLDER_PATH}/${file}" ]]; then
-        echo "File ${file} is missing, skipping for now."
-        exit 0
-    fi
-done
+def files(directory, name):
+    original_file = os.path.join(directory, f"{PREFIX}{name}{SUFFIX}")
+    mf_file = os.path.join(directory, f"{PREFIX}{MF_PREFIX}{name}{SUFFIX}")
+    return original_file, mf_file
 
-mkdir -p "${DEST_FOLDER}"
+def check_files_exist(directory, file_list):
+    """Check if all specified files and their mf_ counterparts exist in the directory."""
+    for file in file_list:
+        original_file, mf_file = files(directory, file)
+        if not os.path.isfile(original_file) or not os.path.isfile(mf_file):
+            print(f"Missing file: {original_file} or {mf_file}")
+            return False
+    return True
 
-# Generate the zip file name
-zip_file="backup_$(date +%Y%m%d%H%M).zip"
+def create_zip_archive(directory, file_list, output_dir):
+    """Create a zip archive with all specified files."""
+    timestamp = datetime.now().strftime("%Y%m%d%H%M")
+    zip_filename = os.path.join(output_dir, f"backup_{timestamp}.zip")
+    with zipfile.ZipFile(zip_filename, 'w') as zipf:
+        for file in file_list:
+            original_file, mf_file = files(directory, file)
+            zipf.write(original_file, os.path.basename(original_file))
+            zipf.write(mf_file, os.path.basename(mf_file))
+    return zip_filename
 
-for file in $save_files; do
-    zip -j "${DEST_FOLDER}/${zip_file}" "${FOLDER_PATH}/${file}"
-done
+def main():
+    # Check if all files exist
+    if not check_files_exist(SOURCE_DIR, FILE_LIST):
+        print("Not all files are present. Exiting.")
+        return
+    
+    # Create the zip archive
+    zip_filename = create_zip_archive(SOURCE_DIR, FILE_LIST, SOURCE_DIR)
+    print(f"Created zip archive: {zip_filename}")
+    
+    # Move the zip archive to the destination directory
+    shutil.move(zip_filename, DEST_DIR)
+    print(f"Moved zip archive to: {DEST_DIR}")
+    
+    # Remove original files
+    for file in FILE_LIST:
+        original_file, mf_file = files(SOURCE_DIR, file)
+        os.remove(original_file)
+        os.remove(mf_file)
+    print("Removed original files.")
 
-if [[ -f "${DEST_FOLDER}/${zip_file}" ]]; then
-    echo "Backup created: ${DEST_FOLDER}/${zip_file}"
-    # clean up the files
-    for file in $save_files; do
-        rm "${FOLDER_PATH}/${file}"
-    done
-else
-    echo "Backup failed."
-    exit 1
-fi
-
+if __name__ == "__main__":
+    main()
