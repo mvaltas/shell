@@ -9,10 +9,12 @@ vim.cmd 'packadd paq-nvim'               -- load the package manager
 require "paq" {
     'savq/paq-nvim';                  -- Let Paq manage itself
 
+    -- Colorscheme
+    'folke/tokyonight.nvim';          -- Purpleish color scheme
+
     -- Feature focused plugins
     'tpope/vim-surround';             -- handle surroundings ()[]"'{} as text objects
     'wellle/targets.vim';             -- lots of text objects (https://mvaltas.com/targets)
-    'sainnhe/edge';                   -- Edge color scheme
     'junegunn/vim-easy-align';        -- align text easily
 
      -- LSP and completion, finding files
@@ -30,12 +32,7 @@ require "paq" {
 }
 
 -- colors
-vim.g.edge_style = 'aura'
-vim.g.edge_colors_override = { 
-  bg0 = { '#171717', '235' },
-}
-vim.cmd 'colorscheme edge'
-
+vim.cmd.colorscheme 'tokyonight-night'
 
 -- general editor options
 vim.opt.expandtab = true                                    -- Use spaces instead of tabs
