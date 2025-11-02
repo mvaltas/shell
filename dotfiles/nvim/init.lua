@@ -1,38 +1,36 @@
--- shotcuts to common functions
-local opt = vim.opt  -- access to options
-local keymap = vim.keymap -- access to keymaps
-
-projectdir = string.gsub("HOME/Projects", "HOME", os.getenv('HOME')) -- User Projects dir
+-- Globals
+HOME = os.getenv("HOME") or "~"
+PROJECT_DIR = string.gsub("HOME/Projects", "HOME", HOME) -- User Projects dir
 
 -- plugin management
-vim.cmd 'packadd paq-nvim'               -- load the package manager
+vim.cmd "packadd paq-nvim"               -- load the package manager
 require "paq" {
-    'savq/paq-nvim';                  -- Let Paq manage itself
+    "savq/paq-nvim";                  -- Let Paq manage itself
 
     -- Colorscheme
-    'folke/tokyonight.nvim';          -- Purpleish color scheme
+    "folke/tokyonight.nvim";          -- Purpleish color scheme
 
     -- Feature focused plugins
-    'tpope/vim-surround';             -- handle surroundings ()[]"'{} as text objects
-    'wellle/targets.vim';             -- lots of text objects (https://mvaltas.com/targets)
-    'junegunn/vim-easy-align';        -- align text easily
+    "tpope/vim-surround";             -- handle surroundings ()[]"'{} as text objects
+    "wellle/targets.vim";             -- lots of text objects (https://mvaltas.com/targets)
+    "junegunn/vim-easy-align";        -- align text easily
 
      -- LSP and completion, finding files
-    'nvim-lua/popup.nvim';            -- provides popup window functionality
-    'neovim/nvim-lspconfig';          -- dependency of the above
-    'nvim-lua/plenary.nvim';          -- collection of Lua functions used by plugins
-    'nvim-telescope/telescope.nvim';  -- lua/config/tscope.lua
-    'nvim-treesitter/nvim-treesitter';-- Configuration and abstraction layer
+    "nvim-lua/popup.nvim";            -- provides popup window functionality
+    "neovim/nvim-lspconfig";          -- dependency of the above
+    "nvim-lua/plenary.nvim";          -- collection of Lua functions used by plugins
+    "nvim-telescope/telescope.nvim";  -- lua/config/tscope.lua
+    "nvim-treesitter/nvim-treesitter";-- Configuration and abstraction layer
 
     -- GIT
-    'lewis6991/gitsigns.nvim';         -- git capabilities on neovim
+    "lewis6991/gitsigns.nvim";         -- git capabilities on neovim
 
     -- AI
-    'augmentcode/augment.vim';         -- lua/config/augment.lua
+    "augmentcode/augment.vim";         -- lua/config/augment.lua
 }
 
 -- colors
-vim.cmd.colorscheme 'tokyonight-night'
+vim.cmd.colorscheme "tokyonight-night"
 
 -- general editor options
 vim.opt.expandtab = true                                    -- Use spaces instead of tabs
