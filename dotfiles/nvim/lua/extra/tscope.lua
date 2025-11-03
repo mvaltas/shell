@@ -16,6 +16,7 @@ vim.keymap.set('n','<leader>a',':Telescope<cr>', map_opts)                 -- a 
 
 -- treesitter + telescope
 vim.keymap.set('n','<leader>d',':Telescope treesitter<cr>', map_opts)                          -- d  for all (D)efinitions
+-- treesitter with pre-typed text...
 vim.keymap.set('n','<leader>df',':Telescope treesitter default_text=:function:<cr>', map_opts) -- df for (D)ef (F)unctions
 vim.keymap.set('n','<leader>dv',':Telescope treesitter default_text=:var:<cr>', map_opts)      -- dv for (D)ef (V)ariables
 vim.keymap.set('n','<leader>dc',':Telescope treesitter default_text=:class:<cr>', map_opts)    -- dc for (D)ef (C)lasses
@@ -31,6 +32,9 @@ vim.keymap.set('n','<leader>ls',':Telescope lsp_document_symbols<cr>', map_opts)
 vim.keymap.set('n','<leader>ld',':Telescope lsp_definitions<cr>', map_opts)         -- ls for (L)sp (D)efinitions
 vim.keymap.set('n','<leader>li',':Telescope lsp_incoming_calls<cr>', map_opts)      -- ls for (L)sp (I)ncoming calls
 vim.keymap.set('n','<leader>lo',':Telescope lsp_outgoing_calls<cr>', map_opts)      -- ls for (L)sp (O)utgoing calls
+
+-- LSP with pre-typed text
+vim.keymap.set('n','<leader>lm',':Telescope lsp_document_symbols default_text=:method:<cr>', map_opts)      -- ls for (L)sp (O)utgoing calls
 
 
 -- telescope configuration

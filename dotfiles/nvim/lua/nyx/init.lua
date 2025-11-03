@@ -8,6 +8,7 @@ local function load_nyx()
   vim.cmd("syntax reset")
 
   vim.o.background = "dark" -- what else?
+  vim.g.colors_name = "nyx"
 
   local colors = require("nyx.colors")
   local groups = require("nyx.groups").groups(colors)

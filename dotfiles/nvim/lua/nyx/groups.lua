@@ -116,9 +116,9 @@ local function groups(colors)
       ['@function.builtin'] = { fg = colors.cyan, },
       ['@function'] = { fg = colors.green, },
       ['@function.macro'] = { fg = colors.green, },
+      ['@function.method'] = { fg = colors.green, },
       ['@variable.parameter'] = { fg = colors.orange, },
       ['@variable.parameter.reference'] = { fg = colors.orange, },
-      ['@function.method'] = { fg = colors.green, },
       ['@variable.member'] = { fg = colors.orange, },
       ['@property'] = { fg = colors.purple, },
       ['@constructor'] = { fg = colors.cyan, },
@@ -175,13 +175,16 @@ local function groups(colors)
       ['@lsp.type.function'] = { fg = colors.green, },
       ['@lsp.type.interface'] = { fg = colors.cyan },
       ['@lsp.type.macro'] = { fg = colors.cyan },
-      ['@lsp.type.method'] = { fg = colors.green, },
+      ['@lsp.type.method'] = { fg = colors.blue, },
       ['@lsp.type.namespace'] = { fg = colors.orange, },
       ['@lsp.type.parameter'] = { fg = colors.orange, },
       ['@lsp.type.property'] = { fg = colors.purple, },
       ['@lsp.type.struct'] = { fg = colors.cyan },
       ['@lsp.type.type'] = { fg = colors.bright_cyan, },
       ['@lsp.type.variable'] = { fg = colors.fg, },
+
+      -- Kotlin LSP
+      ['@attribute.kotlin'] = { fg = colors.orange },
 
       -- HTML
       htmlArg = { fg = colors.green, },
