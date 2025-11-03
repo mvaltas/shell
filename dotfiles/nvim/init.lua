@@ -10,6 +10,8 @@ require "paq" {
     -- Colorschemes
     "sainnhe/edge";
     "sainnhe/sonokai";
+    "rebelot/kanagawa.nvim";
+    "Mofiqul/dracula.nvim";
 
     -- Feature focused plugins
     "tpope/vim-surround";             -- handle surroundings ()[]"'{} as text objects
@@ -53,7 +55,7 @@ vim.opt.relativenumber = true                               -- Relative line num
 -- end line numbers
 
 -- loads all configurations in lua/config directory
-require('utils').load_all('config')
+require('utils').load_all('extra')
 
 -- shortcut to reload init.lua
 vim.cmd 'command! -nargs=0 Init :luafile ~/.config/nvim/init.lua'
