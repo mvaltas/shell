@@ -37,7 +37,8 @@ local function groups(colors)
       Underlined = { fg = colors.cyan, underline = true, },
 
       Cursor = { reverse = true, },
-      CursorLineNr = { fg = colors.fg, bold = true, },
+      LineNr = { fg = colors.comment, },
+      CursorLineNr = { fg = colors.white, bold = true, },
 
       SignColumn = { bg = colors.bg, },
 
@@ -64,7 +65,6 @@ local function groups(colors)
       FoldColumn = {},
       Search = { fg = colors.black, bg = colors.orange, },
       IncSearch = { fg = colors.orange, bg = colors.comment, },
-      LineNr = { fg = colors.comment, },
       MatchParen = { fg = colors.fg, underline = true, },
       NonText = { fg = colors.nontext, },
       Pmenu = { fg = colors.white, bg = colors.menu, },

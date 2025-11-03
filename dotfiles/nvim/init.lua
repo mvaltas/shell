@@ -46,6 +46,8 @@ vim.opt.wrap = true                                         -- Wrap lines
 -- line numbers
 vim.opt.number = true                                       -- Print line number
 vim.opt.relativenumber = true                               -- Relative line numbers
+vim.opt.cursorline = true                                   -- Enable highlight of the cursor line
+vim.opt.cursorlineopt = "number"                            -- Given the above, highlight only the line number
 -- end line numbers
 
 -- loads all configurations in lua/config directory
