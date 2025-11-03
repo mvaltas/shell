@@ -51,6 +51,9 @@ vim.opt.relativenumber = true                               -- Relative line num
 -- loads all configurations in lua/config directory
 require('utils').load_all('extra')
 
+-- my default color scheme
+vim.cmd.colorscheme "nyx"
+
 -- shortcut to reload init.lua
 vim.cmd 'command! -nargs=0 Init :luafile ~/.config/nvim/init.lua'
 vim.cmd 'command! -nargs=0 EInit :e ~/.config/nvim/init.lua'

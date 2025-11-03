@@ -30,7 +30,7 @@ local function groups(colors)
       StorageClass = { fg = colors.pink, },
       Structure = { fg = colors.yellow, },
       TypeDef = { fg = colors.yellow, },
-      Special = { fg = colors.green, italic = true },
+      Special = { fg = colors.green, italic = false },
       SpecialComment = { fg = colors.comment, italic = true, },
       Error = { fg = colors.bright_red, },
       Todo = { fg = colors.purple, bold = true, italic = true, },
@@ -47,7 +47,7 @@ local function groups(colors)
       ColorColumn = { bg = colors.selection, },
 
       StatusLine = { fg = colors.white, bg = colors.selection, },
-      StatusLineNC = { fg = colors.comment, },
+      StatusLineNC = { fg = colors.white, bg = colors.black },
       StatusLineTerm = { fg = colors.white, bg = colors.black, },
       StatusLineTermNC = { fg = colors.comment, },
 

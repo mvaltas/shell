@@ -3,14 +3,14 @@ local log = function(msg)
 end
 
 local function load_nyx()
-  log("loading nyx")
+  log("loading nyx colorscheme")
   vim.cmd("highlight clear")
   vim.cmd("syntax reset")
 
   vim.o.background = "dark" -- what else?
 
-  local pallete = require("nyx.pallete")
-  local groups = require("nyx.groups").groups(pallete)
+  local colors = require("nyx.colors")
+  local groups = require("nyx.groups").groups(colors)
 
   for group, setting in pairs(groups) do
     vim.api.nvim_set_hl(0, group, setting)
