@@ -28,7 +28,9 @@ vim.keymap.set('n','<leader>gr',':Telescope grep_string<cr>', map_opts) -- gr fo
 
 -- LSP + telescope
 vim.keymap.set('n','<leader>ls',':Telescope lsp_document_symbols<cr>', map_opts)    -- ls for (L)sp (S)ymbols
-vim.keymap.set('n','<leader>ls',':Telescope lsp_definitions<cr>', map_opts)         -- ls for (L)sp (D)efinitions
+vim.keymap.set('n','<leader>ld',':Telescope lsp_definitions<cr>', map_opts)         -- ls for (L)sp (D)efinitions
+vim.keymap.set('n','<leader>li',':Telescope lsp_incoming_calls<cr>', map_opts)      -- ls for (L)sp (I)ncoming calls
+vim.keymap.set('n','<leader>lo',':Telescope lsp_outgoing_calls<cr>', map_opts)      -- ls for (L)sp (O)utgoing calls
 
 
 -- telescope configuration

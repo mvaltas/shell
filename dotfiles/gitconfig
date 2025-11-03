@@ -10,7 +10,7 @@
   excludesfile = ~/.gitignore
 [alias]
   # show the current configuration
-  clist = config --global --list
+  clist = "!f() { git config --global --list | grep -E '^alias'; }; f"
   # what's the current branch?
   cb = rev-parse --abbrev-ref HEAD
   #####################
