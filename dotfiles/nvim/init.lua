@@ -7,12 +7,6 @@ vim.cmd "packadd paq-nvim"               -- load the package manager
 require "paq" {
     "savq/paq-nvim";                  -- Let Paq manage itself
 
-    -- Colorschemes
-    "sainnhe/edge";
-    "sainnhe/sonokai";
-    "rebelot/kanagawa.nvim";
-    "Mofiqul/dracula.nvim";
-
     -- Feature focused plugins
     "tpope/vim-surround";             -- handle surroundings ()[]"'{} as text objects
     "wellle/targets.vim";             -- lots of text objects (https://mvaltas.com/targets)

@@ -1,1 +1,1 @@
-require("nyx").load_scheme()
+require("nyx").load()

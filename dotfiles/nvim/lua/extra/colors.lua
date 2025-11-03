@@ -11,14 +11,5 @@ vim.g.sonokai_colors_override = {
 }
 
 
-require('kanagawa').setup({
-    colors = {                   -- add/modify theme and palette colors
-        palette = {},
-        theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
-    },
-    theme = "wave",              -- Load "wave" theme
-})
-
-
-vim.cmd.colorscheme "kanagawa"
+vim.cmd.colorscheme "nyx"
 
