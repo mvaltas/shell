@@ -1,10 +1,106 @@
+local group_sensitivity = {
+  -- critical: Important information if wrong could lead to failures
+  -- Operators such as :? , !!, !=, >=
+  critical = {
+    "@operator", "@keyword.operator",
+  },
+
+  -- moderate: Information that represents the structure of 
+  -- the problem solving
+  moderate = {
+    "@function", "@lsp.type.function",
+  },
+
+  -- entry: Entries done by the programmer: Strings mostly
+  -- and other defined entries, besides numbers and
+  -- booleans as these are moderate.
+  entry    = {
+    "@string", "String",
+  },
+
+  -- markers: Or notice, not necessarily informational but
+  -- can be use to accent parts of the code or surround
+  -- neutral information, like {}, [], <>, and other 
+  -- delimiters, like ';', also builtin functions
+  marker   = {
+    "@punctuation.bracket",
+    "@constructor",
+    "@function.builtin", "@keyword.function",
+  },
+
+  -- neutral: Stable information such as class names
+  neutral  = {
+    "@punctuation.delimiter",
+    "@variable", "@lsp.type.variable",
+  },
+
+  -- action/message: function calls, non-builtin
+  action = {
+    "@function.method",
+  },
+
+  target = {
+    "@lsp.typemod.variable.global",
+    "@property",
+    "@boolean",
+  },
+
+  -- subtle: comments, line numbers, things that 
+  -- can be ignored most of the time without prejudice
+  subtle   = {
+    "@string.documentation.python",
+  },
+
+}
+
+local function category_colors(colors)
+  return {
+    critical = {
+      fg = colors.red, bold = true
+    },
+    moderate = {
+      fg = colors.orange
+    },
+    action = {
+      fg = colors.white
+    },
+    entry    = {
+      fg = colors.green
+    },
+    marker   = {
+      fg = colors.cyan
+    },
+    neutral  = {
+      fg = colors.off_white
+    },
+    target   = {
+      fg = colors.purple
+    },
+    subtle   = {
+      fg = colors.comment
+    },
+  }
+end
+
+
+local function category_highlights(colors)
+  local cat_colors = category_colors(colors)
+  local cat_highlight = {}
+  for category, groups in pairs(group_sensitivity) do
+    local hl_opts = cat_colors[category]
+    for _, group in ipairs(groups) do
+      cat_highlight[group] = vim.tbl_extend("force", hl_opts, cat_highlight[group] or {})
+    end
+  end
+  return cat_highlight
+end
+
 local function groups(colors)
-   return {
+   local base = {
       Normal = { fg = colors.fg, bg = colors.bg, },
       NormalFloat = { fg = colors.fg, bg = colors.bg, },
       Comment = { fg = colors.comment, italic = true, },
       Constant = { fg = colors.yellow, },
-      String = { fg = colors.yellow, },
       Character = { fg = colors.green, },
       Number = { fg = colors.orange, },
       Boolean = { fg = colors.cyan, },
@@ -38,7 +134,7 @@ local function groups(colors)
 
       Cursor = { reverse = true, },
       LineNr = { fg = colors.comment, },
-      CursorLineNr = { fg = colors.white, bold = true, },
+      CursorLineNr = { fg = colors.yellow, bold = true, },
 
       SignColumn = { bg = colors.bg, },
 
@@ -92,8 +188,6 @@ local function groups(colors)
 
       -- TreeSitter
       ['@error'] = { fg = colors.bright_red, },
-      ['@punctuation.delimiter'] = { fg = colors.fg, },
-      ['@punctuation.bracket'] = { fg = colors.fg, },
       ['@markup.list'] = { fg = colors.cyan, },
 
       ['@constant'] = { fg = colors.purple, },
@@ -116,19 +210,15 @@ local function groups(colors)
       ['@function.builtin'] = { fg = colors.cyan, },
       ['@function'] = { fg = colors.green, },
       ['@function.macro'] = { fg = colors.green, },
-      ['@function.method'] = { fg = colors.green, },
       ['@variable.parameter'] = { fg = colors.orange, },
       ['@variable.parameter.reference'] = { fg = colors.orange, },
       ['@variable.member'] = { fg = colors.orange, },
-      ['@property'] = { fg = colors.purple, },
-      ['@constructor'] = { fg = colors.cyan, },
 
       ['@keyword.conditional'] = { fg = colors.pink, },
       ['@keyword.repeat'] = { fg = colors.pink, },
       ['@label'] = { fg = colors.cyan, },
 
       ['@keyword'] = { fg = colors.pink, },
-      ['@keyword.function'] = { fg = colors.cyan, },
       ['@keyword.function.ruby'] = { fg = colors.pink, },
       ['@keyword.operator'] = { fg = colors.pink, },
       ['@operator'] = { fg = colors.pink, },
@@ -182,6 +272,8 @@ local function groups(colors)
       ['@lsp.type.struct'] = { fg = colors.cyan },
       ['@lsp.type.type'] = { fg = colors.bright_cyan, },
       ['@lsp.type.variable'] = { fg = colors.fg, },
+
+      ['@lsp.mod.defaultLibrary.lua'] = { link = "@function.builtin" },
 
       -- Kotlin LSP
       ['@attribute.kotlin'] = { fg = colors.orange },
@@ -292,8 +384,9 @@ local function groups(colors)
       LspReferenceWrite = { fg = colors.orange, },
       LspCodeLens = { fg = colors.cyan, },
       LspInlayHint = { fg = "#969696", bg = "#2f3146" },
-
    }
+
+   return vim.tbl_deep_extend("force", base, category_highlights(colors))
  end
 
  return {

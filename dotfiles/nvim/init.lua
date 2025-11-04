@@ -56,6 +56,8 @@ require('utils').load_all('extra')
 -- my default color scheme
 vim.cmd.colorscheme "nyx"
 
+vim.keymap.set('n','<leader>i',':Inspect<cr>', {})
+
 -- shortcut to reload init.lua
 vim.cmd 'command! -nargs=0 Init :luafile ~/.config/nvim/init.lua'
 vim.cmd 'command! -nargs=0 EInit :e ~/.config/nvim/init.lua'
