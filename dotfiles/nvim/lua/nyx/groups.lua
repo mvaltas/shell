@@ -10,15 +10,16 @@ local group_sensitivity = {
   -- effects, reach and delegation.
   moderate = {
     "@function.method", "@lsp.type.method",
+    "@type", "@lsp.type.class",
   },
 
   -- neutral: don't carry side effects, are
   -- not calls by themselves or operators
   neutral  = {
     "@punctuation.delimiter",
-    "@variable", "@lsp.type.variable",
+    "@variable", "@lsp.type.variable", "@variable.parameter", 
     "@function", "@lsp.type.function",
-    "@variable.parameter", "@lsp.type.parameter",
+    "@lsp.type.parameter",
   },
 
   -- markers: Or notice, not necessarily informational but
@@ -35,7 +36,7 @@ local group_sensitivity = {
   -- target: as in keys, globals, booleans things
   -- that are "fixed" in their definition
   target = {
-    "@lsp.typemod.variable.global",
+    "@lsp.typemod.variable.global", "@variable.member",
     "@property",
     "@boolean",
   },
@@ -209,7 +210,6 @@ local function groups(colors)
       ['@function'] = { fg = colors.green, },
       ['@function.macro'] = { fg = colors.green, },
       ['@variable.parameter.reference'] = { fg = colors.orange, },
-      ['@variable.member'] = { fg = colors.orange, },
 
       ['@keyword.conditional'] = { fg = colors.pink, },
       ['@keyword.repeat'] = { fg = colors.pink, },
@@ -219,7 +219,6 @@ local function groups(colors)
       ['@keyword.operator'] = { fg = colors.pink, },
       ['@operator'] = { fg = colors.pink, },
       ['@keyword.exception'] = { fg = colors.purple, },
-      ['@type'] = { fg = colors.bright_cyan, },
       ['@type.builtin'] = { fg = colors.cyan, italic = true, },
       ['@type.qualifier'] = { fg = colors.pink, },
       ['@structure'] = { fg = colors.purple, },
@@ -254,7 +253,6 @@ local function groups(colors)
       ['@decorator'] = { fg = colors.cyan },
 
       -- LSP Semantic (0.9+)
-      ['@lsp.type.class'] = { fg = colors.cyan },
       ['@lsp.type.enum'] = { fg = colors.cyan },
       ['@lsp.type.decorator'] = { fg = colors.green },
       ['@lsp.type.enumMember'] = { fg = colors.purple },
