@@ -1,14 +1,43 @@
 local group_sensitivity = {
-  -- critical: Important information if wrong could lead to failures
+  -- critical: Important information if wrong could lead to failures.
   -- Operators such as :? , !!, !=, >=
   critical = {
-    "@operator", "@keyword.operator",
+    "@operator", "@keyword.operator", "Operator",
   },
 
   -- moderate: Information that represents the structure of 
-  -- the problem solving
+  -- the problem solving, also known as actions, with side
+  -- effects, reach and delegation.
   moderate = {
+    "@function.method", "@lsp.type.method",
+  },
+
+  -- neutral: don't carry side effects, are
+  -- not calls by themselves or operators
+  neutral  = {
+    "@punctuation.delimiter",
+    "@variable", "@lsp.type.variable",
     "@function", "@lsp.type.function",
+    "@variable.parameter", "@lsp.type.parameter",
+  },
+
+  -- markers: Or notice, not necessarily informational but
+  -- can be use to accent parts of the code or surround
+  -- neutral information, like {}, [], <>, and other 
+  -- delimiters, like ';', also builtin functions
+  marker = {
+    "@punctuation.bracket",
+    "@constructor",
+    "@function.builtin", "@keyword.function",
+    "@keyword",
+  },
+
+  -- target: as in keys, globals, booleans things
+  -- that are "fixed" in their definition
+  target = {
+    "@lsp.typemod.variable.global",
+    "@property",
+    "@boolean",
   },
 
   -- entry: Entries done by the programmer: Strings mostly
@@ -16,33 +45,6 @@ local group_sensitivity = {
   -- booleans as these are moderate.
   entry    = {
     "@string", "String",
-  },
-
-  -- markers: Or notice, not necessarily informational but
-  -- can be use to accent parts of the code or surround
-  -- neutral information, like {}, [], <>, and other 
-  -- delimiters, like ';', also builtin functions
-  marker   = {
-    "@punctuation.bracket",
-    "@constructor",
-    "@function.builtin", "@keyword.function",
-  },
-
-  -- neutral: Stable information such as class names
-  neutral  = {
-    "@punctuation.delimiter",
-    "@variable", "@lsp.type.variable",
-  },
-
-  -- action/message: function calls, non-builtin
-  action = {
-    "@function.method",
-  },
-
-  target = {
-    "@lsp.typemod.variable.global",
-    "@property",
-    "@boolean",
   },
 
   -- subtle: comments, line numbers, things that 
@@ -59,10 +61,7 @@ local function category_colors(colors)
       fg = colors.red, bold = true
     },
     moderate = {
-      fg = colors.orange
-    },
-    action = {
-      fg = colors.white
+      fg = colors.organge
     },
     entry    = {
       fg = colors.green
@@ -96,7 +95,7 @@ local function category_highlights(colors)
 end
 
 local function groups(colors)
-   local base = {
+   local overrides = {
       Normal = { fg = colors.fg, bg = colors.bg, },
       NormalFloat = { fg = colors.fg, bg = colors.bg, },
       Comment = { fg = colors.comment, italic = true, },
@@ -106,7 +105,6 @@ local function groups(colors)
       Boolean = { fg = colors.cyan, },
       Float = { fg = colors.orange, },
       FloatBorder = { fg = colors.white, },
-      Operator = { fg = colors.purple, },
       Keyword = { fg = colors.cyan, },
       Keywords = { fg = colors.cyan, },
       Identifier = { fg = colors.cyan, },
@@ -210,7 +208,6 @@ local function groups(colors)
       ['@function.builtin'] = { fg = colors.cyan, },
       ['@function'] = { fg = colors.green, },
       ['@function.macro'] = { fg = colors.green, },
-      ['@variable.parameter'] = { fg = colors.orange, },
       ['@variable.parameter.reference'] = { fg = colors.orange, },
       ['@variable.member'] = { fg = colors.orange, },
 
@@ -218,7 +215,6 @@ local function groups(colors)
       ['@keyword.repeat'] = { fg = colors.pink, },
       ['@label'] = { fg = colors.cyan, },
 
-      ['@keyword'] = { fg = colors.pink, },
       ['@keyword.function.ruby'] = { fg = colors.pink, },
       ['@keyword.operator'] = { fg = colors.pink, },
       ['@operator'] = { fg = colors.pink, },
@@ -265,9 +261,7 @@ local function groups(colors)
       ['@lsp.type.function'] = { fg = colors.green, },
       ['@lsp.type.interface'] = { fg = colors.cyan },
       ['@lsp.type.macro'] = { fg = colors.cyan },
-      ['@lsp.type.method'] = { fg = colors.blue, },
       ['@lsp.type.namespace'] = { fg = colors.orange, },
-      ['@lsp.type.parameter'] = { fg = colors.orange, },
       ['@lsp.type.property'] = { fg = colors.purple, },
       ['@lsp.type.struct'] = { fg = colors.cyan },
       ['@lsp.type.type'] = { fg = colors.bright_cyan, },
@@ -386,7 +380,7 @@ local function groups(colors)
       LspInlayHint = { fg = "#969696", bg = "#2f3146" },
    }
 
-   return vim.tbl_deep_extend("force", base, category_highlights(colors))
+   return vim.tbl_deep_extend("force", overrides, category_highlights(colors))
  end
 
  return {
