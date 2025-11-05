@@ -1,9 +1,4 @@
-local log = function(msg)
-  vim.notify("nyx-debug: " .. msg, vim.log.levels.DEBUG)
-end
-
 local function load_nyx()
-  log("loading nyx colorscheme")
   vim.cmd("highlight clear")
   vim.cmd("syntax reset")
 
@@ -27,9 +22,9 @@ end
 local function show_colors(colors)
   -- create a new scratch buffer
   local buf = vim.api.nvim_create_buf(false, true)
-  vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
-  vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
-  vim.api.nvim_buf_set_option(buf, "swapfile", false)
+  vim.api.nvim_set_option_value('buftype', 'nofile', { buf = buf })
+  vim.api.nvim_set_option_value('bufhidden', 'wipe', { buf = buf })
+  vim.api.nvim_set_option_value('swapfile', false, { buf = buf })
 
   -- prepare lines
   local lines = {}
@@ -47,13 +42,13 @@ local function show_colors(colors)
 
   -- apply highlights
   for _, hl in ipairs(highlights) do
-    vim.api.nvim_buf_add_highlight(buf, -1, hl.hl, hl.line-1, 15, -1)
+    vim.hl.range(buf, 0, hl.hl, { hl.line - 1, 15 }, { hl.line - 1, -1 }, { hl_eol = true })
   end
 
   -- open in a new window
   vim.api.nvim_command("vsplit")
   vim.api.nvim_win_set_buf(0, buf)
-  vim.api.nvim_buf_set_option(buf, "modifiable", false)
+  vim.api.nvim_set_option_value("modifiable", false, { buf = buf})
 end
 
 

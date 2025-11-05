@@ -10,14 +10,16 @@ local group_sensitivity = {
   -- effects, reach and delegation.
   moderate = {
     "@function.method", "@lsp.type.method",
-    "@type", "@lsp.type.class",
+    "@type", "@lsp.type.class", "@type.builtin",
+    "@label",
+    "@number", "@number.float",
   },
 
   -- neutral: don't carry side effects, are
   -- not calls by themselves or operators
   neutral  = {
     "@punctuation.delimiter",
-    "@variable", "@lsp.type.variable", "@variable.parameter", 
+    "@variable.parameter", "@type.qualifier",
     "@function", "@lsp.type.function",
     "@lsp.type.parameter",
   },
@@ -30,15 +32,16 @@ local group_sensitivity = {
     "@punctuation.bracket",
     "@constructor",
     "@function.builtin", "@keyword.function",
-    "@keyword",
+    "@keyword", "@keyword.exception",
   },
 
   -- target: as in keys, globals, booleans things
   -- that are "fixed" in their definition
   target = {
     "@lsp.typemod.variable.global", "@variable.member",
-    "@property",
+    "@property", "@lsp.type.property",
     "@boolean",
+    "@variable", "@lsp.type.variable", -- variables are important but not as much as function calls
   },
 
   -- entry: Entries done by the programmer: Strings mostly
@@ -51,7 +54,7 @@ local group_sensitivity = {
   -- subtle: comments, line numbers, things that 
   -- can be ignored most of the time without prejudice
   subtle   = {
-    "@string.documentation.python",
+    "@string.documentation.python", "Comment"
   },
 
 }
@@ -62,7 +65,7 @@ local function category_colors(colors)
       fg = colors.red, bold = true
     },
     moderate = {
-      fg = colors.organge
+      fg = colors.orange
     },
     entry    = {
       fg = colors.green
@@ -77,7 +80,7 @@ local function category_colors(colors)
       fg = colors.purple
     },
     subtle   = {
-      fg = colors.comment
+      fg = colors.gray, italic = true,
     },
   }
 end
@@ -98,8 +101,9 @@ end
 local function groups(colors)
    local overrides = {
       Normal = { fg = colors.fg, bg = colors.bg, },
-      NormalFloat = { fg = colors.fg, bg = colors.bg, },
-      Comment = { fg = colors.comment, italic = true, },
+
+      NormalFloat = { fg = colors.white, bg = colors.dark_gray, },
+
       Constant = { fg = colors.yellow, },
       Character = { fg = colors.green, },
       Number = { fg = colors.orange, },
@@ -110,64 +114,64 @@ local function groups(colors)
       Keywords = { fg = colors.cyan, },
       Identifier = { fg = colors.cyan, },
       Function = { fg = colors.yellow, },
-      Statement = { fg = colors.purple, },
+      Statement = { fg = colors.magenta, },
       Conditional = { fg = colors.pink, },
       Repeat = { fg = colors.pink, },
       Label = { fg = colors.cyan, },
-      Exception = { fg = colors.purple, },
+      Exception = { fg = colors.magenta, },
       PreProc = { fg = colors.yellow, },
-      Include = { fg = colors.purple, },
-      Define = { fg = colors.purple, },
+      Include = { fg = colors.magenta, },
+      Define = { fg = colors.magenta, },
       Title = { fg = colors.cyan, },
-      Macro = { fg = colors.purple, },
+      Macro = { fg = colors.magenta, },
       PreCondit = { fg = colors.cyan, },
       Type = { fg = colors.cyan, },
       StorageClass = { fg = colors.pink, },
       Structure = { fg = colors.yellow, },
       TypeDef = { fg = colors.yellow, },
       Special = { fg = colors.green, italic = false },
-      SpecialComment = { fg = colors.comment, italic = true, },
+      SpecialComment = { fg = colors.gray, italic = true, },
       Error = { fg = colors.bright_red, },
-      Todo = { fg = colors.purple, bold = true, italic = true, },
+      Todo = { fg = colors.magenta, bold = true, italic = true, },
       Underlined = { fg = colors.cyan, underline = true, },
 
       Cursor = { reverse = true, },
-      LineNr = { fg = colors.comment, },
-      CursorLineNr = { fg = colors.yellow, bold = true, },
+      LineNr = { fg = colors.gray, },
+      CursorLineNr = { fg = colors.white, bold = true, },
 
       SignColumn = { bg = colors.bg, },
 
-      Conceal = { fg = colors.comment, },
+      Conceal = { fg = colors.gray, },
       CursorColumn = { bg = colors.black, },
       CursorLine = { bg = colors.selection, },
       ColorColumn = { bg = colors.selection, },
 
-      StatusLine = { fg = colors.white, bg = colors.selection, },
-      StatusLineNC = { fg = colors.white, bg = colors.black },
+      StatusLine = { fg = colors.white, bg = colors.dark_green, },
+      StatusLineNC = { fg = colors.white, bg = colors.dark_gray },
       StatusLineTerm = { fg = colors.white, bg = colors.black, },
-      StatusLineTermNC = { fg = colors.comment, },
+      StatusLineTermNC = { fg = colors.gray, },
 
       Directory = { fg = colors.cyan, },
       DiffAdd = { fg = colors.bg, bg = colors.green, },
       DiffChange = { fg = colors.orange, },
       DiffDelete = { fg = colors.red, },
-      DiffText = { fg = colors.comment, },
+      DiffText = { fg = colors.gray, },
 
       ErrorMsg = { fg = colors.bright_red, },
       VertSplit = { fg = colors.black, },
       WinSeparator = { fg = colors.black, },
-      Folded = { fg = colors.comment, },
+      Folded = { fg = colors.gray, },
       FoldColumn = {},
-      Search = { fg = colors.black, bg = colors.orange, },
-      IncSearch = { fg = colors.orange, bg = colors.comment, },
-      MatchParen = { fg = colors.fg, underline = true, },
+
+      MatchParen = { underline = true, },
+
       NonText = { fg = colors.nontext, },
       Pmenu = { fg = colors.white, bg = colors.menu, },
       PmenuSel = { fg = colors.white, bg = colors.selection, },
       PmenuSbar = { bg = colors.bg, },
       PmenuThumb = { bg = colors.selection, },
 
-      Question = { fg = colors.purple, },
+      Question = { fg = colors.magenta, },
       QuickFixLine = { fg = colors.black, bg = colors.yellow, },
       SpecialKey = { fg = colors.nontext, },
 
@@ -176,12 +180,19 @@ local function groups(colors)
       SpellLocal = { fg = colors.yellow, },
       SpellRare = { fg = colors.yellow, },
 
-      TabLine = { fg = colors.comment, },
+      TabLine = { fg = colors.gray, },
       TabLineSel = { fg = colors.white, },
       TabLineFill = { bg = colors.bg, },
       Terminal = { fg = colors.white, bg = colors.black, },
-      Visual = { bg = colors.visual, },
-      VisualNOS = { fg = colors.visual, },
+
+      -- when you type '/' and search...
+      Search    = { fg = colors.dark_blue, bg = colors.highlight_blue, },
+      IncSearch = { fg = colors.dark_green, bg = colors.highlight_green, },
+      CurSearch = { fg = colors.dark_yellow, bg = colors.highlight_yellow, },
+
+      Visual    = { fg = colors.bright_green, bg = colors.dark_green, },
+      VisualNOS = { fg = colors.bright_green, bg = colors.dark_green, },
+
       WarningMsg = { fg = colors.yellow, },
       WildMenu = { fg = colors.black, bg = colors.white, },
 
@@ -189,19 +200,16 @@ local function groups(colors)
       ['@error'] = { fg = colors.bright_red, },
       ['@markup.list'] = { fg = colors.cyan, },
 
-      ['@constant'] = { fg = colors.purple, },
-      ['@constant.builtin'] = { fg = colors.purple, },
-      ['@markup.link.label.symbol'] = { fg = colors.purple, },
+      ['@constant'] = { fg = colors.magenta, },
+      ['@constant.builtin'] = { fg = colors.magenta, },
+      ['@markup.link.label.symbol'] = { fg = colors.magenta, },
 
       ['@constant.macro'] = { fg = colors.cyan, },
       ['@string.regexp'] = { fg = colors.red, },
       ['@string'] = { fg = colors.yellow, },
       ['@string.escape'] = { fg = colors.cyan, },
-      ['@string.special.symbol'] = { fg = colors.purple, },
+      ['@string.special.symbol'] = { fg = colors.magenta, },
       ['@character'] = { fg = colors.green, },
-      ['@number'] = { fg = colors.purple, },
-      ['@boolean'] = { fg = colors.purple, },
-      ['@number.float'] = { fg = colors.green, },
       ['@annotation'] = { fg = colors.yellow, },
       ['@attribute'] = { fg = colors.cyan, },
       ['@module'] = { fg = colors.orange, },
@@ -213,19 +221,17 @@ local function groups(colors)
 
       ['@keyword.conditional'] = { fg = colors.pink, },
       ['@keyword.repeat'] = { fg = colors.pink, },
-      ['@label'] = { fg = colors.cyan, },
+
 
       ['@keyword.function.ruby'] = { fg = colors.pink, },
       ['@keyword.operator'] = { fg = colors.pink, },
       ['@operator'] = { fg = colors.pink, },
-      ['@keyword.exception'] = { fg = colors.purple, },
-      ['@type.builtin'] = { fg = colors.cyan, italic = true, },
-      ['@type.qualifier'] = { fg = colors.pink, },
-      ['@structure'] = { fg = colors.purple, },
+      ['@keyword.exception'] = { fg = colors.magenta, },
+      ['@structure'] = { fg = colors.magenta, },
       ['@keyword.include'] = { fg = colors.pink, },
 
       ['@variable'] = { fg = colors.fg, },
-      ['@variable.builtin'] = { fg = colors.purple, },
+      ['@variable.builtin'] = { fg = colors.magenta, },
 
       ['@markup'] = { fg = colors.orange, },
       ['@markup.strong'] = { fg = colors.orange, bold = true, },     -- bold
@@ -244,7 +250,7 @@ local function groups(colors)
       ['@class'] = { fg = colors.cyan },
       ['@struct'] = { fg = colors.cyan },
       ['@enum'] = { fg = colors.cyan },
-      ['@enumMember'] = { fg = colors.purple },
+      ['@enumMember'] = { fg = colors.magenta },
       ['@event'] = { fg = colors.cyan },
       ['@interface'] = { fg = colors.cyan },
       ['@modifier'] = { fg = colors.cyan },
@@ -255,12 +261,11 @@ local function groups(colors)
       -- LSP Semantic (0.9+)
       ['@lsp.type.enum'] = { fg = colors.cyan },
       ['@lsp.type.decorator'] = { fg = colors.green },
-      ['@lsp.type.enumMember'] = { fg = colors.purple },
+      ['@lsp.type.enumMember'] = { fg = colors.magenta },
       ['@lsp.type.function'] = { fg = colors.green, },
       ['@lsp.type.interface'] = { fg = colors.cyan },
       ['@lsp.type.macro'] = { fg = colors.cyan },
       ['@lsp.type.namespace'] = { fg = colors.orange, },
-      ['@lsp.type.property'] = { fg = colors.purple, },
       ['@lsp.type.struct'] = { fg = colors.cyan },
       ['@lsp.type.type'] = { fg = colors.bright_cyan, },
       ['@lsp.type.variable'] = { fg = colors.fg, },
@@ -280,8 +285,8 @@ local function groups(colors)
       htmlH4 = { fg = colors.pink, },
       htmlH5 = { fg = colors.pink, },
       htmlH6 = { fg = colors.pink, },
-      htmlItalic = { fg = colors.purple, italic = true, },
-      htmlLink = { fg = colors.purple, underline = true, },
+      htmlItalic = { fg = colors.magenta, italic = true, },
+      htmlLink = { fg = colors.magenta, underline = true, },
       htmlSpecialChar = { fg = colors.yellow, },
       htmlSpecialTagName = { fg = colors.cyan, },
       htmlTag = { fg = colors.cyan, },
@@ -302,16 +307,16 @@ local function groups(colors)
       markdownH5 = { link = "rainbow5" },
       markdownH6 = { link = "rainbow6" },
       markdownHeadingDelimiter = { fg = colors.red, },
-      markdownHeadingRule = { fg = colors.comment, },
-      markdownId = { fg = colors.purple, },
+      markdownHeadingRule = { fg = colors.gray, },
+      markdownId = { fg = colors.magenta, },
       markdownIdDeclaration = { fg = colors.cyan, },
-      markdownIdDelimiter = { fg = colors.purple, },
+      markdownIdDelimiter = { fg = colors.magenta, },
       markdownItalic = { fg = colors.yellow, italic = true, },
-      markdownLinkDelimiter = { fg = colors.purple, },
+      markdownLinkDelimiter = { fg = colors.magenta, },
       markdownLinkText = { fg = colors.pink, },
       markdownListMarker = { fg = colors.cyan, },
       markdownOrderedListMarker = { fg = colors.red, },
-      markdownRule = { fg = colors.comment, },
+      markdownRule = { fg = colors.gray, },
       ['@markup.heading.1.markdown'] = { link = 'rainbowcol1' },
       ['@markup.heading.2.markdown'] = { link = 'rainbowcol2' },
       ['@markup.heading.3.markdown'] = { link = 'rainbowcol3' },
@@ -329,14 +334,14 @@ local function groups(colors)
       GitSignsCurrentLineBlame = { fg = colors.white, },
 
       -- Telescope
-      TelescopePromptBorder = { fg = colors.comment, },
-      TelescopeResultsBorder = { fg = colors.comment, },
-      TelescopePreviewBorder = { fg = colors.comment, },
+      TelescopePromptBorder = { fg = colors.purple, },
+      TelescopeResultsBorder = { fg = colors.bright_gray, },
+      TelescopePreviewBorder = { fg = colors.bright_gray, },
       TelescopeSelection = { fg = colors.white, bg = colors.selection, },
-      TelescopeMultiSelection = { fg = colors.purple, bg = colors.selection, },
+      TelescopeMultiSelection = { bg = colors.dark_green, },
       TelescopeNormal = { fg = colors.fg, bg = colors.bg, },
       TelescopeMatching = { fg = colors.green, },
-      TelescopePromptPrefix = { fg = colors.purple, },
+      TelescopePromptPrefix = { fg = colors.magenta, },
       TelescopeResultsDiffDelete = { fg = colors.red },
       TelescopeResultsDiffChange = { fg = colors.cyan },
       TelescopeResultsDiffAdd = { fg = colors.green },
@@ -354,10 +359,11 @@ local function groups(colors)
       DiagnosticSignWarn = { fg = colors.yellow, },
       DiagnosticSignInfo = { fg = colors.cyan, },
       DiagnosticSignHint = { fg = colors.cyan, },
-      DiagnosticFloatingError = { fg = colors.red, bg = colors.black },
-      DiagnosticFloatingWarn = { fg = colors.yellow, bg = colors.black },
-      DiagnosticFloatingInfo = { fg = colors.cyan, bg = colors.black },
-      DiagnosticFloatingHint = { fg = colors.cyan, bg = colors.black },
+
+      DiagnosticFloatingError = { fg = colors.red, },
+      DiagnosticFloatingWarn  = { fg = colors.yellow, },
+      DiagnosticFloatingInfo  = { fg = colors.cyan, },
+      DiagnosticFloatingHint  = { fg = colors.cyan, },
       DiagnosticVirtualTextError = { fg = colors.red, },
       DiagnosticVirtualTextWarn = { fg = colors.yellow, },
       DiagnosticVirtualTextInfo = { fg = colors.cyan, },
