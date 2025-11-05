@@ -13,6 +13,7 @@ local group_sensitivity = {
     "@type", "@lsp.type.class", "@type.builtin",
     "@label",
     "@number", "@number.float",
+    "gitcommitOverflow",
   },
 
   -- neutral: don't carry side effects, are
@@ -22,6 +23,7 @@ local group_sensitivity = {
     "@variable.parameter", "@type.qualifier",
     "@function", "@lsp.type.function",
     "@lsp.type.parameter",
+    "gitcommitSummary",
   },
 
   -- markers: Or notice, not necessarily informational but
@@ -54,7 +56,8 @@ local group_sensitivity = {
   -- subtle: comments, line numbers, things that 
   -- can be ignored most of the time without prejudice
   subtle   = {
-    "@string.documentation.python", "Comment"
+    "@string.documentation.python", "Comment",
+    "gitcommitDiff"
   },
 
 }
@@ -152,6 +155,14 @@ local function groups(colors)
       StatusLineTermNC = { fg = colors.gray, },
 
       Directory = { fg = colors.cyan, },
+
+      -- diff from git commit
+      Added = { fg = colors.green },
+      Removed = { fg = colors.red },
+      diffOldFile = { link = "Removed" },
+      diffNewfile = { link = "Added" },
+      diffFile    = { fg = colors.yellow },
+
       DiffAdd = { fg = colors.bg, bg = colors.green, },
       DiffChange = { fg = colors.orange, },
       DiffDelete = { fg = colors.red, },
