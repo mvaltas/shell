@@ -15,19 +15,15 @@ vim.keymap.set('n','<leader>c',':Telescope command_history<cr>', map_opts) -- c 
 vim.keymap.set('n','<leader>o',':Telescope oldfiles<cr>', map_opts)        -- o for (O)ld files
 vim.keymap.set('n','<leader>a',':Telescope<cr>', map_opts)                 -- a for (A)ll
 
--- treesitter + telescope
-vim.keymap.set('n','<leader>d',':Telescope treesitter<cr>', map_opts)                          -- d  for all (D)efinitions
-
 -- telescope greps
 vim.keymap.set('n','<leader>gl',':Telescope live_grep<cr>', map_opts)   -- gl for (G)rep (L)ive
 vim.keymap.set('n','<leader>gr',':Telescope grep_string<cr>', map_opts) -- gr for (GR)ep [on word]
 
--- LSP + telescope
-vim.keymap.set('n','<leader>ls',':Telescope lsp_document_symbols<cr>', map_opts)    -- ls for (L)sp (S)ymbols
-vim.keymap.set('n','<leader>ld',':Telescope lsp_definitions<cr>', map_opts)         -- ls for (L)sp (D)efinitions
-vim.keymap.set('n','<leader>li',':Telescope lsp_implementations<cr>', map_opts)      -- ls for (L)sp (I)implementations
-vim.keymap.set('n','<leader>lw',':Telescope lsp_workspace_symbols<cr>', map_opts)    -- ls for (L)sp (W)orkspace symbols
-
+-- lsp + telescope
+vim.keymap.set('n','<leader>l',':Telescope lsp_workspace_symbols<cr>', map_opts) -- ls for (L)sp (W)orkspace symbols
+vim.keymap.set('n','<leader>ld',':Telescope lsp_definitions<cr>', map_opts)      -- ls for (L)sp (D)efinitions
+vim.keymap.set('n','<leader>li',':Telescope lsp_implementations<cr>', map_opts)  -- ls for (L)sp (I)implementations
+vim.keymap.set('n','<leader>ln',':Telescope lsp_incoming_calls<cr>', map_opts)   -- ls for (L)sp i(N)coming calls
 
 -- Default texts for Telescope.
 local function tscope_maps(command, shortcuts)
@@ -36,21 +32,30 @@ local function tscope_maps(command, shortcuts)
   end
 end
 
+
+-- LSP symbols (\l and wait)
+vim.keymap.set('n','<leader>ll',':Telescope lsp_document_symbols<cr>', map_opts)  -- ls for (L)sp (S)ymbols
 -- LSP default texts
 tscope_maps('lsp_document_symbols', {
-  ['lm'] = 'method',   -- (L)sp (M)ethod
-  ['lv'] = 'variable', -- (L)sp (V)ariable
-  ['lf'] = 'function', -- (L)sp (F)unction
-  ['lc'] = 'class',    -- (L)sp (C)lass
+  ['lm'] = 'method',      -- (L)sp (M)ethod
+  ['lf'] = 'function',    -- (L)sp (F)unction
+  ['lv'] = 'variable',    -- (L)sp (V)ariable
+  ['lc'] = 'class',       -- (L)sp (C)lass
+  ['lp'] = 'property',    -- (L)sp (P)roperty
+  ['lo'] = 'object',      -- (L)sp (O)object
+  ['lt'] = 'constant',    -- (L)sp cons(T)ant
+  ['lr'] = 'constructor', -- (L)sp const(R)uctor
 })
 
+-- Treesitter symbols (\d and wait)
+vim.keymap.set('n','<leader>dd',':Telescope treesitter<cr>', map_opts) -- d  for all (D)efinitions
 -- Treesitter default texts
 tscope_maps('treesitter', {
+  ['dm'] = 'method',   -- (D)ef  (M)ethod
   ['df'] = 'function', -- (D)def (F)functions
   ['dv'] = 'var',      -- (D)def (V)ariables
   ['dc'] = 'class',    -- (D)ef  (C)lass
   ['di'] = 'import',   -- (D)ef  (I)mport
-  ['dm'] = 'method',   -- (D)ef  (M)ethod
 })
 
 -- telescope configuration
