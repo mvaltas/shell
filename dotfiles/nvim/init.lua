@@ -18,6 +18,7 @@ require "paq" {
     "nvim-lua/plenary.nvim";          -- collection of Lua functions used by plugins
     "nvim-telescope/telescope.nvim";  -- lua/config/tscope.lua
     "nvim-treesitter/nvim-treesitter";-- Configuration and abstraction layer
+    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' };
 
     -- GIT
     "lewis6991/gitsigns.nvim";         -- git capabilities on neovim
