@@ -92,7 +92,7 @@ fn() {
     if [[ -t 1 ]]; then
       echo ${item##${FFOUND_PWD}//}
     else
-      echo ${${item##${FFOUND_PWD}//}//$'\x1b'\[[0-9;]#[a-zA-Z]]}
+      echo ${item##${FFOUND_PWD}//} | sed 's/\x1B\[[0-9;]*[A-Za-z]//g'
     fi
 
   elif [ "$1" ]; then
