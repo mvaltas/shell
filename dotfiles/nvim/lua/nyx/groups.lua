@@ -14,6 +14,7 @@ local group_sensitivity = {
     "@label",
     "@number", "@number.float",
     "gitcommitOverflow",
+    "zshFunction",
   },
 
   -- neutral: don't carry side effects, are
@@ -24,6 +25,7 @@ local group_sensitivity = {
     "@function", "@lsp.type.function",
     "@lsp.type.parameter",
     "gitcommitSummary",
+    "justBody",
   },
 
   -- markers: Or notice, not necessarily informational but
@@ -35,6 +37,7 @@ local group_sensitivity = {
     "@constructor",
     "@function.builtin", "@keyword.function",
     "@keyword", "@keyword.exception",
+    "zshSubstDelim",
   },
 
   -- target: as in keys, globals, booleans things
@@ -151,8 +154,8 @@ local function groups(colors)
 
       StatusLine = { fg = colors.white, bg = colors.dark_green, },
       StatusLineNC = { fg = colors.white, bg = colors.dark_gray },
-      StatusLineTerm = { fg = colors.white, bg = colors.black, },
-      StatusLineTermNC = { fg = colors.gray, },
+      StatusLineTerm = { fg = colors.white, bg = colors.dark_blue, },
+      StatusLineTermNC = { fg = colors.white, bg = colors.dark_gray, },
 
       Directory = { fg = colors.cyan, },
 
