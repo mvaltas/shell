@@ -26,6 +26,7 @@ vim.keymap.set('n','<leader>gr',':Telescope grep_string<cr>', map_opts) -- gr fo
 vim.keymap.set('n','<leader>ls',':Telescope lsp_document_symbols<cr>', map_opts)    -- ls for (L)sp (S)ymbols
 vim.keymap.set('n','<leader>ld',':Telescope lsp_definitions<cr>', map_opts)         -- ls for (L)sp (D)efinitions
 vim.keymap.set('n','<leader>li',':Telescope lsp_implementations<cr>', map_opts)      -- ls for (L)sp (I)implementations
+vim.keymap.set('n','<leader>lw',':Telescope lsp_workspace_symbols<cr>', map_opts)    -- ls for (L)sp (W)orkspace symbols
 
 
 -- Default texts for Telescope.
@@ -37,8 +38,10 @@ end
 
 -- LSP default texts
 tscope_maps('lsp_document_symbols', {
-  ['lm'] = 'method',     -- (L)sp (M)ethod
-  ['lv'] = 'variable',   -- (L)sp (V)ariable
+  ['lm'] = 'method',   -- (L)sp (M)ethod
+  ['lv'] = 'variable', -- (L)sp (V)ariable
+  ['lf'] = 'function', -- (L)sp (F)unction
+  ['lc'] = 'class',    -- (L)sp (C)lass
 })
 
 -- Treesitter default texts
