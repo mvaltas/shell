@@ -1,4 +1,5 @@
 -- nvim:lua
+local map_opts = {noremap = true, silent = false}
 
 -- A pain stakingly documented table of mnemonics of Telescope to
 -- impress my friends and find stuff easy.
@@ -16,12 +17,6 @@ vim.keymap.set('n','<leader>a',':Telescope<cr>', map_opts)                 -- a 
 
 -- treesitter + telescope
 vim.keymap.set('n','<leader>d',':Telescope treesitter<cr>', map_opts)                          -- d  for all (D)efinitions
--- treesitter with pre-typed text...
-vim.keymap.set('n','<leader>df',':Telescope treesitter default_text=:function:<cr>', map_opts) -- df for (D)ef (F)unctions
-vim.keymap.set('n','<leader>dv',':Telescope treesitter default_text=:var:<cr>', map_opts)      -- dv for (D)ef (V)ariables
-vim.keymap.set('n','<leader>dc',':Telescope treesitter default_text=:class:<cr>', map_opts)    -- dc for (D)ef (C)lasses
-vim.keymap.set('n','<leader>di',':Telescope treesitter default_text=:import:<cr>', map_opts)   -- di for (D)ef (I)mports
-vim.keymap.set('n','<leader>dm',':Telescope treesitter default_text=:method:<cr>', map_opts)   -- dm for (D)ef (M)ethods
 
 -- telescope greps
 vim.keymap.set('n','<leader>gl',':Telescope live_grep<cr>', map_opts)   -- gl for (G)rep (L)ive
@@ -30,12 +25,30 @@ vim.keymap.set('n','<leader>gr',':Telescope grep_string<cr>', map_opts) -- gr fo
 -- LSP + telescope
 vim.keymap.set('n','<leader>ls',':Telescope lsp_document_symbols<cr>', map_opts)    -- ls for (L)sp (S)ymbols
 vim.keymap.set('n','<leader>ld',':Telescope lsp_definitions<cr>', map_opts)         -- ls for (L)sp (D)efinitions
-vim.keymap.set('n','<leader>li',':Telescope lsp_incoming_calls<cr>', map_opts)      -- ls for (L)sp (I)ncoming calls
-vim.keymap.set('n','<leader>lo',':Telescope lsp_outgoing_calls<cr>', map_opts)      -- ls for (L)sp (O)utgoing calls
+vim.keymap.set('n','<leader>li',':Telescope lsp_implementations<cr>', map_opts)      -- ls for (L)sp (I)implementations
 
--- LSP with pre-typed text
-vim.keymap.set('n','<leader>lm',':Telescope lsp_document_symbols default_text=:method:<cr>', map_opts)      -- ls for (L)sp (O)utgoing calls
 
+-- Default texts for Telescope.
+local function tscope_maps(command, shortcuts)
+  for k, v in pairs(shortcuts) do
+    vim.keymap.set('n','<leader>'..k,':Telescope '..command..' default_text=:'..v..':<cr>', map_opts)
+  end
+end
+
+-- LSP default texts
+tscope_maps('lsp_document_symbols', {
+  ['lm'] = 'method',     -- (L)sp (M)ethod
+  ['lv'] = 'variable',   -- (L)sp (V)ariable
+})
+
+-- Treesitter default texts
+tscope_maps('treesitter', {
+  ['df'] = 'function', -- (D)def (F)functions
+  ['dv'] = 'var',      -- (D)def (V)ariables
+  ['dc'] = 'class',    -- (D)ef  (C)lass
+  ['di'] = 'import',   -- (D)ef  (I)mport
+  ['dm'] = 'method',   -- (D)ef  (M)ethod
+})
 
 -- telescope configuration
 local actions = require('telescope.actions')
@@ -57,9 +70,7 @@ require('telescope').setup{
       override_generic_sorter = true,  -- override the generic sorter
       override_file_sorter = true,     -- override the file sorter
       case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-      -- the default case_mode is "smart_case"
     }
   }
 }
-
 require('telescope').load_extension('fzf')

@@ -204,6 +204,8 @@ local function groups(colors)
       Visual    = { fg = colors.bright_green, bg = colors.dark_green, },
       VisualNOS = { fg = colors.bright_green, bg = colors.dark_green, },
 
+      DiagnosticUnnecessary = { fg = colors.bright_gray },
+
       WarningMsg = { fg = colors.yellow, },
       WildMenu = { fg = colors.black, bg = colors.white, },
 
