@@ -7,7 +7,6 @@ local map_opts = {noremap = true, silent = false}
 -- telescope mappings
 vim.keymap.set('n','<leader>f',':Telescope find_files<cr>', map_opts)      -- f for (F)ind files
 vim.keymap.set('n','<leader>b',':Telescope buffers<cr>', map_opts)         -- b for (B)uffers
-vim.keymap.set('n','<leader>g',':Telescope git_files<cr>', map_opts)       -- g for (G)it
 vim.keymap.set('n','<leader>q',':Telescope quickfix<cr>', map_opts)        -- q for (Q)uickfix
 vim.keymap.set('n','<leader>h',':Telescope help_tags<cr>', map_opts)       -- h for (H)elp
 vim.keymap.set('n','<leader>e',':Telescope registers<cr>', map_opts)       -- e for r(E)gisters
@@ -15,15 +14,19 @@ vim.keymap.set('n','<leader>c',':Telescope command_history<cr>', map_opts) -- c 
 vim.keymap.set('n','<leader>o',':Telescope oldfiles<cr>', map_opts)        -- o for (O)ld files
 vim.keymap.set('n','<leader>a',':Telescope<cr>', map_opts)                 -- a for (A)ll
 
+-- telescope gitsigns
+vim.keymap.set('n','<leader>s',':Telescope git_signs<cr>', map_opts)       -- s for git (S)igns
+
 -- telescope greps
 vim.keymap.set('n','<leader>gl',':Telescope live_grep<cr>', map_opts)   -- gl for (G)rep (L)ive
 vim.keymap.set('n','<leader>gr',':Telescope grep_string<cr>', map_opts) -- gr for (GR)ep [on word]
 
 -- lsp + telescope
-vim.keymap.set('n','<leader>l',':Telescope lsp_workspace_symbols<cr>', map_opts) -- ls for (L)sp (W)orkspace symbols
-vim.keymap.set('n','<leader>ld',':Telescope lsp_definitions<cr>', map_opts)      -- ls for (L)sp (D)efinitions
+vim.keymap.set('n','<leader>ls',':Telescope lsp_workspace_symbols<cr>', map_opts) -- ls for (L)sp workspace (S)ymbols
+vim.keymap.set('n','<leader>ld',':Telescope lsp_definitions<cr>', map_opts)       -- ls for (L)sp (D)efinitions
 vim.keymap.set('n','<leader>li',':Telescope lsp_implementations<cr>', map_opts)  -- ls for (L)sp (I)implementations
-vim.keymap.set('n','<leader>ln',':Telescope lsp_incoming_calls<cr>', map_opts)   -- ls for (L)sp i(N)coming calls
+vim.keymap.set('n','<leader>ln',':Telescope lsp_incoming_calls<cr>', map_opts)    -- ls for (L)sp i(N)coming calls
+vim.keymap.set('n','<leader>lu',':Telescope lsp_outgoing_calls<cr>', map_opts)    -- ls for (L)sp o(U)tgoing calls
 
 -- Default texts for Telescope.
 local function tscope_maps(command, shortcuts)
@@ -82,3 +85,4 @@ require('telescope').setup{
   }
 }
 require('telescope').load_extension('fzf')
+require('telescope').load_extension('git_signs')

@@ -59,7 +59,7 @@ local group_sensitivity = {
   -- subtle: comments, line numbers, things that 
   -- can be ignored most of the time without prejudice
   subtle   = {
-    "@string.documentation.python", "Comment",
+    "Comment",
     "gitcommitDiff"
   },
 
@@ -290,6 +290,9 @@ local function groups(colors)
 
       -- Kotlin LSP
       ['@attribute.kotlin'] = { fg = colors.orange },
+
+      -- Python
+      ['@string.documentation.python'] = { fg = colors.bright_gray },
 
       -- HTML
       htmlArg = { fg = colors.green, },
