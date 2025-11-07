@@ -15,6 +15,8 @@ local group_sensitivity = {
     "@number", "@number.float",
     "gitcommitOverflow",
     "zshFunction",
+    "@attribute.kotlin",
+    "@lsp.mod.defaultLibrary.lua",
   },
 
   -- neutral: don't carry side effects, are
@@ -65,29 +67,16 @@ local group_sensitivity = {
 
 }
 
+
 local function category_colors(colors)
   return {
-    critical = {
-      fg = colors.red, bold = true
-    },
-    moderate = {
-      fg = colors.orange
-    },
-    entry    = {
-      fg = colors.green
-    },
-    marker   = {
-      fg = colors.cyan
-    },
-    neutral  = {
-      fg = colors.off_white
-    },
-    target   = {
-      fg = colors.purple
-    },
-    subtle   = {
-      fg = colors.gray, italic = true,
-    },
+    critical = { fg = colors.red, bold = true },
+    moderate = { fg = colors.orange },
+    entry    = { fg = colors.green },
+    marker   = { fg = colors.cyan },
+    neutral  = { fg = colors.white },
+    target   = { fg = colors.purple },
+    subtle   = { fg = colors.gray, italic = true, },
   }
 end
 
@@ -104,10 +93,10 @@ local function category_highlights(colors)
   return cat_highlight
 end
 
+
 local function groups(colors)
    local overrides = {
-      Normal = { fg = colors.fg, bg = colors.bg, },
-
+      Normal = { fg = colors.white, bg = colors.black, },
       NormalFloat = { fg = colors.white, bg = colors.dark_gray, },
 
       Constant = { fg = colors.yellow, },
@@ -145,7 +134,7 @@ local function groups(colors)
       LineNr = { fg = colors.gray, },
       CursorLineNr = { fg = colors.white, bold = true, },
 
-      SignColumn = { bg = colors.bg, },
+      SignColumn = { bg = colors.black, },
 
       Conceal = { fg = colors.gray, },
       CursorColumn = { bg = colors.black, },
@@ -159,17 +148,18 @@ local function groups(colors)
 
       Directory = { fg = colors.cyan, },
 
-      -- diff from git commit
+      -- start diffs 
       Added = { fg = colors.green },
+      DiffAdd = { fg = colors.green, },
       Removed = { fg = colors.red },
+      DiffDelete = { fg = colors.red, },
       diffOldFile = { link = "Removed" },
       diffNewfile = { link = "Added" },
       diffFile    = { fg = colors.yellow },
-
-      DiffAdd = { fg = colors.bg, bg = colors.green, },
-      DiffChange = { fg = colors.orange, },
-      DiffDelete = { fg = colors.red, },
+      DiffChange = { fg = colors.yellow, },
       DiffText = { fg = colors.gray, },
+      -- end diffs
+
 
       ErrorMsg = { fg = colors.bright_red, },
       VertSplit = { fg = colors.black, },
@@ -182,7 +172,7 @@ local function groups(colors)
       NonText = { fg = colors.nontext, },
       Pmenu = { fg = colors.white, bg = colors.menu, },
       PmenuSel = { fg = colors.white, bg = colors.selection, },
-      PmenuSbar = { bg = colors.bg, },
+      PmenuSbar = { bg = colors.black, },
       PmenuThumb = { bg = colors.selection, },
 
       Question = { fg = colors.magenta, },
@@ -196,7 +186,7 @@ local function groups(colors)
 
       TabLine = { fg = colors.gray, },
       TabLineSel = { fg = colors.white, },
-      TabLineFill = { bg = colors.bg, },
+      TabLineFill = { bg = colors.black, },
       Terminal = { fg = colors.white, bg = colors.black, },
 
       -- when you type '/' and search...
@@ -230,7 +220,6 @@ local function groups(colors)
       ['@attribute'] = { fg = colors.cyan, },
       ['@module'] = { fg = colors.orange, },
 
-      ['@function.builtin'] = { fg = colors.cyan, },
       ['@function'] = { fg = colors.green, },
       ['@function.macro'] = { fg = colors.green, },
       ['@variable.parameter.reference'] = { fg = colors.orange, },
@@ -246,7 +235,7 @@ local function groups(colors)
       ['@structure'] = { fg = colors.magenta, },
       ['@keyword.include'] = { fg = colors.pink, },
 
-      ['@variable'] = { fg = colors.fg, },
+      ['@variable'] = { fg = colors.white, },
       ['@variable.builtin'] = { fg = colors.magenta, },
 
       ['@markup'] = { fg = colors.orange, },
@@ -284,12 +273,7 @@ local function groups(colors)
       ['@lsp.type.namespace'] = { fg = colors.orange, },
       ['@lsp.type.struct'] = { fg = colors.cyan },
       ['@lsp.type.type'] = { fg = colors.bright_cyan, },
-      ['@lsp.type.variable'] = { fg = colors.fg, },
-
-      ['@lsp.mod.defaultLibrary.lua'] = { link = "@function.builtin" },
-
-      -- Kotlin LSP
-      ['@attribute.kotlin'] = { fg = colors.orange },
+      ['@lsp.type.variable'] = { fg = colors.white, },
 
       -- Python
       ['@string.documentation.python'] = { fg = colors.bright_gray },
@@ -358,7 +342,7 @@ local function groups(colors)
       TelescopePreviewBorder = { fg = colors.bright_gray, },
       TelescopeSelection = { fg = colors.white, bg = colors.selection, },
       TelescopeMultiSelection = { bg = colors.dark_green, },
-      TelescopeNormal = { fg = colors.fg, bg = colors.bg, },
+      TelescopeNormal = { fg = colors.white, bg = colors.black, },
       TelescopeMatching = { fg = colors.green, },
       TelescopePromptPrefix = { fg = colors.magenta, },
       TelescopeResultsDiffDelete = { fg = colors.red },

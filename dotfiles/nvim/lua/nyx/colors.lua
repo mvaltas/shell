@@ -1,10 +1,4 @@
 return {
-   bg = "#000000",
-
-   fg = "#F8F8F2",
-
-
-   bright_cyan = "#A4FFFF",
 
    -- PFD base
    white = "#FFFFFF",
@@ -15,12 +9,10 @@ return {
    green = "#86F05D",   bright_green = "#69FF94",   dark_green  = "#12300d",
    blue = "#005b96",    bright_blue = "#6497b1",    dark_blue   = "#03396c",
    purple = "#8A6D9F",  bright_purple = "#9656ce",
-   cyan = "#8BE9FD",
+   cyan = "#8BE9FD",    bright_cyan = "#A4FFFF",
    pink = "#FF79C6",
    -- extra 
    orange = "#FFB86C",
-
-   off_white = "#ECECEC",
 
    highlight_yellow = "#fcf151",
    highlight_green  = "#83f18d",
