@@ -11,3 +11,17 @@ vim.lsp.config('basedpyright', {
   },
 })
 vim.lsp.enable('basedpyright')
+
+
+local python_group = vim.api.nvim_create_augroup('PythonCustomStuff', { clear = true })
+
+vim.api.nvim_create_autocmd('FileType', {
+  group = python_group,
+  pattern = 'python',
+  callback = function()
+    vim.keymap.set('i', 'f"', 'f""<Left>', { buffer = true, noremap = true })
+    vim.keymap.set('i', '(', '()<Left>',   { buffer = true, noremap = true })
+    vim.keymap.set('i', '[', '[]<Left>',   { buffer = true, noremap = true })
+    vim.keymap.set('i', '{', '{}<Left>',   { buffer = true, noremap = true })
+  end,
+})
