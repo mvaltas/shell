@@ -1,7 +1,7 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
-# turn xv on/off for debugging
-xv() { case $- in *[xv]*) set +xv;; *) set -xv ;; esac }
+# turn xtrace on/off for debugging (xv was on bash)
+alias xv="setopt | grep -q xtrace && unsetopt xtrace || setopt xtrace prompt_subst"
 
 # reload the profile (mnemonic BashSource) 
 bs() { echo "Sourcing ~/.zshrc" && source ~/.zshrc; }
