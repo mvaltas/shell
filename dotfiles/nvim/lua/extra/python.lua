@@ -19,9 +19,8 @@ vim.api.nvim_create_autocmd('FileType', {
   group = python_group,
   pattern = 'python',
   callback = function()
-    vim.keymap.set('i', 'f"', 'f""<Left>', { buffer = true, noremap = true })
-    vim.keymap.set('i', '(', '()<Left>',   { buffer = true, noremap = true })
-    vim.keymap.set('i', '[', '[]<Left>',   { buffer = true, noremap = true })
-    vim.keymap.set('i', '{', '{}<Left>',   { buffer = true, noremap = true })
+    vim.keymap.set('i', '(',  '()<Left>',  { buffer = true, noremap = true })
+    vim.keymap.set('i', '[',  '[]<Left>',  { buffer = true, noremap = true })
+    vim.keymap.set('i', '{',  '{}<Left>',  { buffer = true, noremap = true })
   end,
 })
