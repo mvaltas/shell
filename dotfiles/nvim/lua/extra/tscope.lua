@@ -12,6 +12,7 @@ vim.keymap.set('n','<leader>h',':Telescope help_tags<cr>', map_opts)       -- h 
 vim.keymap.set('n','<leader>e',':Telescope registers<cr>', map_opts)       -- e for r(E)gisters
 vim.keymap.set('n','<leader>c',':Telescope command_history<cr>', map_opts) -- c for (C)ommand history
 vim.keymap.set('n','<leader>o',':Telescope oldfiles<cr>', map_opts)        -- o for (O)ld files
+vim.keymap.set('n','<leader>m',':Telescope marks<cr>', map_opts)           -- o for (M)arks
 vim.keymap.set('n','<leader>a',':Telescope<cr>', map_opts)                 -- a for (A)ll
 
 -- telescope gitsigns
@@ -24,7 +25,6 @@ vim.keymap.set('n','<leader>gr',':Telescope grep_string<cr>', map_opts) -- gr fo
 -- lsp + telescope
 vim.keymap.set('n','<leader>ls',':Telescope lsp_workspace_symbols<cr>', map_opts) -- ls for (L)sp workspace (S)ymbols
 vim.keymap.set('n','<leader>ld',':Telescope lsp_definitions<cr>', map_opts)       -- ls for (L)sp (D)efinitions
-vim.keymap.set('n','<leader>li',':Telescope lsp_implementations<cr>', map_opts)  -- ls for (L)sp (I)implementations
 vim.keymap.set('n','<leader>ln',':Telescope lsp_incoming_calls<cr>', map_opts)    -- ls for (L)sp i(N)coming calls
 vim.keymap.set('n','<leader>lu',':Telescope lsp_outgoing_calls<cr>', map_opts)    -- ls for (L)sp o(U)tgoing calls
 
