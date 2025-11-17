@@ -243,7 +243,7 @@ local function groups(colors)
       ['@markup.emphasis'] = { fg = colors.yellow, italic = true, }, -- italic
       ['@markup.underline'] = { fg = colors.orange, },
       ['@markup.heading'] = { fg = colors.pink, bold = true, },        -- title
-      ['@markup.raw'] = { fg = colors.yellow, },                 -- inline code
+      ['@markup.raw'] = { fg = colors.bright_blue, },                 -- inline code
       ['@markup.link.url'] = { fg = colors.yellow, italic = true, },      -- urls
       ['@markup.link'] = { fg = colors.orange, bold = true, },
 
