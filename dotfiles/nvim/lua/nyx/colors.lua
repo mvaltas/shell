@@ -20,7 +20,7 @@ return {
    highlight_pink   = "#ff659f",
    highlight_purple = "#b581fe",
 
-   selection = "#44475A",
+   selection = "#001e3d",
 
    comment = "#6272A4",
 

@@ -190,9 +190,9 @@ local function groups(colors)
       Terminal = { fg = colors.white, bg = colors.black, },
 
       -- when you type '/' and search...
-      Search    = { fg = colors.dark_blue, bg = colors.highlight_blue, },
-      IncSearch = { fg = colors.dark_green, bg = colors.highlight_green, },
-      CurSearch = { fg = colors.dark_yellow, bg = colors.highlight_yellow, },
+      Search    = { fg = colors.dark_blue, bg = colors.highlight_blue, bold = true },
+      IncSearch = { fg = colors.dark_green, bg = colors.highlight_green, bold = true },
+      CurSearch = { fg = colors.dark_yellow, bg = colors.highlight_yellow,  bold = true},
 
       Visual    = { fg = colors.bright_green, bg = colors.dark_green, },
       VisualNOS = { fg = colors.bright_green, bg = colors.dark_green, },
@@ -335,6 +335,7 @@ local function groups(colors)
       GitSignsChangeLn = { fg = colors.black, bg = colors.cyan, },
       GitSignsDeleteLn = { fg = colors.black, bg = colors.bright_red, },
       GitSignsCurrentLineBlame = { fg = colors.white, },
+      GitSignsBlameColor = { fg = colors.light_blue },
 
       -- Telescope
       TelescopePromptBorder = { fg = colors.purple, },

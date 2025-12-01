@@ -55,21 +55,6 @@ end, {
 })
 -- end of user command
 
--- Also based on Gery Bernhardt (https://github.com/garybernhardt/dotfiles/blob/eed3bbab874f15ddbaaf0341fac1923c12b30b5b/.vimrc#L276)
--- Smart tab, will auto complete if there's a character under the cursor
--- otherwise it will just issue a tab
-vim.keymap.set('i', '<Tab>', function()
-  local cur_col = vim.fn.col(".")
-  local line = vim.api.nvim_get_current_line()
-  local prev_char = line:sub(cur_col - 1, cur_col - 1)
-  if prev_char:match('%w') then
-    return '<C-p>'
-  else
-    return '<Tab>'
-  end
-end, { expr = true, noremap = true })
-
-
 -- open file in last position
 vim.api.nvim_create_autocmd("BufReadPost", {
   pattern = "*",

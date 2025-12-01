@@ -45,6 +45,14 @@ vim.opt.termguicolors = true                                -- Enable terminal c
 vim.opt.wildmode = 'list:longest'                           -- Command-line completion mode
 vim.opt.wrap = true                                         -- Wrap lines
 
+-- Proper complete with fuzzy matching
+vim.opt.completeopt = {
+  "fuzzy",
+  "menu",
+  "menuone",
+  "noinsert",
+}
+
 -- line numbers
 vim.opt.number = true                                       -- Print line number
 vim.opt.relativenumber = true                               -- Relative line numbers
