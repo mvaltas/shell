@@ -50,7 +50,6 @@ vim.opt.completeopt = {
   "fuzzy",
   "menu",
   "menuone",
-  "noinsert",
 }
 
 -- line numbers
