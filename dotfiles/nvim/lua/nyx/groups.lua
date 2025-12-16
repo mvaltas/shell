@@ -278,6 +278,10 @@ local function groups(colors)
       -- Python
       ['@string.documentation.python'] = { fg = colors.bright_gray },
 
+      -- Kotlin
+      ['@comment.documentation.kotlin'] = { fg = colors.bright_gray },
+
+
       -- HTML
       htmlArg = { fg = colors.green, },
       htmlBold = { fg = colors.yellow, bold = true, },
