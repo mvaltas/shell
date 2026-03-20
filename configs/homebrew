@@ -1,3 +1,5 @@
 # vim: ft=sh
 # homebrew stuff
 
+# Brew new stuff...
+alias brewnew="brew update; brew upgrade"
