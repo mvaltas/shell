@@ -23,9 +23,6 @@ require "paq" {
     -- GIT
     "lewis6991/gitsigns.nvim";         -- git capabilities on neovim
     "radyz/telescope-gitsigns";        -- Telescope extension for gitsigns
-
-    -- AI
-    "augmentcode/augment.vim";         -- lua/config/augment.lua
 }
 
 -- general editor options
