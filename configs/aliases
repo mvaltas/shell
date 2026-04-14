@@ -15,6 +15,8 @@ alias less='less -R'
 alias ll='ls -laF'
 # display type after name like "/", "@", "*" ...
 alias ls='ls -F'
+# recent 10
+alias lr='ls -ltF | head -n 10'
 
 # by default ask before removing or moving
 # unless -f is given
