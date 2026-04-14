@@ -6,18 +6,25 @@
 -- Incremental selection using native vim.treesitter API
 local _sel_stack = {}
 
+local ESC = vim.api.nvim_replace_termcodes('<Esc>', true, false, true)
+
 local function select_node(node)
   if not node then return end
   local srow, scol, erow, ecol = node:range()
-  vim.api.nvim_buf_set_mark(0, '<', srow + 1, scol, {})
-  vim.api.nvim_buf_set_mark(0, '>', erow + 1, math.max(ecol - 1, 0), {})
-  vim.cmd('normal! gv')
+  vim.api.nvim_feedkeys(ESC, 'nx', false)                             -- exit any current mode
+  vim.api.nvim_win_set_cursor(0, { srow + 1, scol })                  -- move to start
+  vim.api.nvim_feedkeys('v', 'nx', false)                             -- enter characterwise visual
+  vim.api.nvim_win_set_cursor(0, { erow + 1, math.max(ecol - 1, 0) }) -- extend to end
 end
 
 -- gni: start selection at cursor node (normal mode)
 vim.keymap.set('n', 'gni', function()
+  pcall(vim.treesitter.start)            -- start parser if not already running
   local node = vim.treesitter.get_node()
-  if not node then return end
+  if not node then
+    vim.notify('No treesitter parser available for this filetype', vim.log.levels.WARN)
+    return
+  end
   _sel_stack = { node }
   select_node(node)
 end, { noremap = true, silent = true })
@@ -27,10 +34,12 @@ vim.keymap.set('x', 'gnn', function()
   local node = _sel_stack[#_sel_stack]
   if not node then return end
   local parent = node:parent()
-  if parent then
-    table.insert(_sel_stack, parent)
-    select_node(parent)
+  if not parent then
+    vim.notify('Already at tree root', vim.log.levels.INFO)
+    return
   end
+  table.insert(_sel_stack, parent)
+  select_node(parent)
 end, { noremap = true, silent = true })
 
 -- gnm: shrink to previous node (visual mode)

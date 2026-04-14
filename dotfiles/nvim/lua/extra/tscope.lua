@@ -78,23 +78,25 @@ tscope_maps('treesitter', {
 local actions = require('telescope.actions')
 local make_entry = require('telescope.make_entry')
 
--- Custom entry maker that adds containerName (class) to the searchable ordinal,
--- so you can filter workspace symbols by both name and containing class.
-local function lsp_symbols_with_container(opts)
-  local gen = make_entry.gen_from_lsp_symbols(opts)
-  return function(entry)
-    local item = gen(entry)
-    if item and entry.containerName and entry.containerName ~= '' then
-      item.ordinal = item.ordinal .. ' ' .. entry.containerName
+-- Direct entry maker (not a factory) that appends the container (class) name
+-- to the searchable ordinal so fzf can filter on it.
+-- Telescope uses snake_case internally: entry.container_name, not containerName.
+local _lsp_gen = make_entry.gen_from_lsp_symbols({})
+local function lsp_entry_with_container(entry)
+  local item = _lsp_gen(entry)
+  if item then
+    local container = entry.container_name or entry.containerName or ''
+    if container ~= '' then
+      item.ordinal = item.ordinal .. ' ' .. container
     end
-    return item
   end
+  return item
 end
 
 require('telescope').setup{
   pickers = {
-    lsp_workspace_symbols = { entry_maker = lsp_symbols_with_container },
-    lsp_document_symbols  = { entry_maker = lsp_symbols_with_container },
+    lsp_workspace_symbols = { entry_maker = lsp_entry_with_container },
+    lsp_document_symbols  = { entry_maker = lsp_entry_with_container },
   },
   defaults = {
     path_display = {
