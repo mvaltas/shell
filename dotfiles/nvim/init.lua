@@ -14,10 +14,13 @@ require "paq" {
 
      -- LSP and completion, finding files
     "nvim-lua/popup.nvim";            -- provides popup window functionality
-    "neovim/nvim-lspconfig";          -- dependency of the above
     "nvim-lua/plenary.nvim";          -- collection of Lua functions used by plugins
     "nvim-telescope/telescope.nvim";  -- lua/config/tscope.lua
-    "nvim-treesitter/nvim-treesitter";-- Configuration and abstraction layer
+
+    -- Treesitter
+    { 'neovim-treesitter/nvim-treesitter', branch = 'main' };
+    { 'neovim-treesitter/treesitter-parser-registry', branch = 'main' };
+
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' };
 
     -- GIT

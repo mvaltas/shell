@@ -38,7 +38,8 @@ end
 
 -- LSP symbols (\l and wait)
 vim.keymap.set('n','<leader>ll',':Telescope lsp_document_symbols<cr>', map_opts)  -- ls for (L)sp (S)ymbols
--- LSP default texts
+
+-- LSP default texts / active file
 tscope_maps('lsp_document_symbols', {
   ['lm'] = 'method',      -- (L)sp (M)ethod
   ['lf'] = 'function',    -- (L)sp (F)unction
@@ -48,6 +49,18 @@ tscope_maps('lsp_document_symbols', {
   ['lo'] = 'object',      -- (L)sp (O)object
   ['lt'] = 'constant',    -- (L)sp cons(T)ant
   ['lr'] = 'constructor', -- (L)sp const(R)uctor
+})
+
+-- LSP workspace / all files
+tscope_maps('lsp_workspace_symbols', {
+  ['lwm'] = 'method',      -- (L)sp (M)ethod
+  ['lwf'] = 'function',    -- (L)sp (F)unction
+  ['lwv'] = 'variable',    -- (L)sp (V)ariable
+  ['lwc'] = 'class',       -- (L)sp (C)lass
+  ['lwp'] = 'property',    -- (L)sp (P)roperty
+  ['lwo'] = 'object',      -- (L)sp (O)object
+  ['lwt'] = 'constant',    -- (L)sp cons(T)ant
+  ['lwr'] = 'constructor', -- (L)sp const(R)uctor
 })
 
 -- Treesitter symbols (\d and wait)
@@ -63,7 +76,26 @@ tscope_maps('treesitter', {
 
 -- telescope configuration
 local actions = require('telescope.actions')
+local make_entry = require('telescope.make_entry')
+
+-- Custom entry maker that adds containerName (class) to the searchable ordinal,
+-- so you can filter workspace symbols by both name and containing class.
+local function lsp_symbols_with_container(opts)
+  local gen = make_entry.gen_from_lsp_symbols(opts)
+  return function(entry)
+    local item = gen(entry)
+    if item and entry.containerName and entry.containerName ~= '' then
+      item.ordinal = item.ordinal .. ' ' .. entry.containerName
+    end
+    return item
+  end
+end
+
 require('telescope').setup{
+  pickers = {
+    lsp_workspace_symbols = { entry_maker = lsp_symbols_with_container },
+    lsp_document_symbols  = { entry_maker = lsp_symbols_with_container },
+  },
   defaults = {
     path_display = {
       'shorten',
