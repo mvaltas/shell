@@ -30,6 +30,7 @@
   dm = log HEAD..origin/main --oneline --no-merges
   st = status -sb
   white = "!git diff --check; git diff --cached --check" # find trailing whitespaces
+  wt = worktree
   ####################
   # explore repo logs
   l  = log --graph --abbrev-commit --date=relative
