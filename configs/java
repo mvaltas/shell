@@ -45,4 +45,4 @@ versions  shows current available versions
 }
 
 # default JDK version
-jv 21 &> /dev/null
+jv 25 &> /dev/null
