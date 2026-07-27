@@ -5,13 +5,14 @@
 
 DEFAULT_PROJECT_DIR=${SWEEPWIP_DIR:-${HOME}/Projects}
 PROJECTS_DIR=${DEFAULT_PROJECT_DIR}
+DELAY_SECONDS=0
 
 usage() {
   [[ -n ${1} ]] && echo -e "** ${1}\n"
   cat <<EOU
 Scans directories for '.git' and outputs the state of the local git repository.
 
-Usage $(basename $0) [ -h|--help ] [ -d DIR_TO_SCAN ] [ -abflMPRu ]
+Usage $(basename $0) [ -h|--help ] [ -d DIR_TO_SCAN ] [ -t SECONDS ] [ -abflMPRu ]
 
 DIR_TO_SCAN     Directory where find projects  managed by git, currently it
                 defaults to "${DEFAULT_PROJECT_DIR}", you can change it by
@@ -31,6 +32,8 @@ lowercase options do the oposite.
 -M              Supress local changes check, this will supress -l
 -P              Supress local push/pull differences
 -R              Supress check for remotes
+-t SECONDS      Sleep SECONDS between each repository, to avoid tripping
+                network firewall rules with a burst of requests. Default: 0
 -u              Try fast-forward changes (git merge --ff-only)
 -k              Same as providing -a -b -f -l
 -K              Same as providing -f -a -b -u -d .
@@ -52,10 +55,11 @@ EOU
 
 # except 'h' here and 'p' in check_project, these
 # options need to be the same
-while getopts “hd:fMPRluabkK” OPTION; do
+while getopts “hd:fMPRluabkKt:” OPTION; do
   case $OPTION in
     h) usage;;
     d) PROJECTS_DIR=${OPTARG};;
+    t) DELAY_SECONDS=${OPTARG};;
     K) PROJECTS_DIR=".";;
    \?) usage;;
   esac
@@ -74,7 +78,7 @@ check_project() {
 
   function _flip_option() { [[ ${1} == 'true' ]] && echo '' || echo 'true'; }
 
-  while getopts “p:d:fMPRluabkK” OPTION; do
+  while getopts “p:d:fMPRluabkKt:” OPTION; do
     case $OPTION in
       d) PROJECTS_DIR=${OPTARG};;
       p) PROJECT=${OPTARG};;
@@ -177,4 +181,4 @@ check_project() {
 
 export -f check_project # make this available for find
 
-find -L "${PROJECTS_DIR}"  -type d -name '.git' -exec bash -c "check_project $* -d '${PROJECTS_DIR}' -p '{}' " \;
+find -L "${PROJECTS_DIR}"  -type d -name '.git' -exec bash -c "check_project $* -d '${PROJECTS_DIR}' -p '{}'; sleep ${DELAY_SECONDS}" \;
