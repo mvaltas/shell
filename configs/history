@@ -17,7 +17,7 @@ setopt HIST_VERIFY               # Don't execute immediately upon history expans
 setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
 
-hf(){
+hff(){
   [[ -n ${1} ]] && args="-m ${1}" || args=''
   command=$(fc -l -r ${(s: :)args} 1 | grep -E '.' | selecta | awk '{ $1=""; print $0 }')
   print -s ${(z)command}
