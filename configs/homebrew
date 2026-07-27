@@ -2,4 +2,4 @@
 # homebrew stuff
 
 # Brew new stuff...
-alias brewnew="brew update; brew upgrade"
+alias brewnew="brew update; brew upgrade --yes"
