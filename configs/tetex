@@ -1,0 +1,10 @@
+# vim ft=zsh
+
+compile_diagram() {
+  if [[ -z ${1} ]]; then
+    echo "Usage compile_diagram FILE"
+    exit 1
+  fi
+  file=${1:r}
+  pdflatex -interaction=nonstopmode ${file}.tex && magick -density 200 ${file}.pdf -background white -alpha remove -alpha off ${file}.png
+}

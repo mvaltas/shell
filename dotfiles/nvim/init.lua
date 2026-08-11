@@ -26,6 +26,9 @@ require "paq" {
     -- GIT
     "lewis6991/gitsigns.nvim";         -- git capabilities on neovim
     "radyz/telescope-gitsigns";        -- Telescope extension for gitsigns
+
+    -- Colors
+    "wnkz/monoglow.nvim";
 }
 
 -- general editor options
@@ -62,8 +65,9 @@ vim.opt.cursorlineopt = "number"                            -- Given the above, 
 -- loads all configurations in lua/config directory
 require('utils').load_all('extra')
 
--- my default color scheme
-vim.cmd.colorscheme "nyx"
+vim.cmd.colorscheme 'monoglow'
+-- I prefer black backgrounds in general
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
 
 vim.keymap.set('n','<leader>i',':Inspect<cr>', {})
 
