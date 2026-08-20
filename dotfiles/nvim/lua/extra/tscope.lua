@@ -100,7 +100,7 @@ require('telescope').setup{
   },
   defaults = {
     path_display = {
-      'shorten',
+      shorten = { len = 1 , exclude = {1, -1} },
       'filename_first',
     },
     mappings = {

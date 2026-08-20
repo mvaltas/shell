@@ -1,8 +1,11 @@
 -- enable LSP for python
 vim.lsp.config('basedpyright', {
+  cmd = { '/opt/homebrew/bin/basedpyright-langserver', '--stdio' },
+  filetypes = { 'python' },
+  root_markers = { 'pyproject.toml', 'setup.py', 'requirements.txt', '.git' },
   settings = {
     basedpyright = {
-      typeCheckingMode = "basic",
+      typeCheckingMode = "standard",
       analysis = {
         strictParameterNoneValue = false,
         reportUnknownVariableType = false,
@@ -11,9 +14,6 @@ vim.lsp.config('basedpyright', {
   },
 })
 vim.lsp.enable('basedpyright')
-
-
-local python_group = vim.api.nvim_create_augroup('PythonCustomStuff', { clear = true })
 
 vim.api.nvim_create_autocmd('FileType', {
   group = python_group,
