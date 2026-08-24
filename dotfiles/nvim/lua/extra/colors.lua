@@ -1,4 +1,7 @@
 require('onedark').setup {
-    style = 'darker'
+    style = 'darker',
+    colors = {
+      bg0 = '#000000',
+  },
 }
 require('onedark').load()
