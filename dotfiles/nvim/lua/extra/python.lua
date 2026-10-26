@@ -15,6 +15,8 @@ vim.lsp.config('basedpyright', {
 })
 vim.lsp.enable('basedpyright')
 
+local python_group = vim.api.nvim_create_augroup('PythonGroup', { clear = true })
+
 vim.api.nvim_create_autocmd('FileType', {
   group = python_group,
   pattern = 'python',
