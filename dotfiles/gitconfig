@@ -82,8 +82,10 @@
   gpgsign = true
 # include other gitconfig for signing commits
 [includeIf "gitdir:~/Projects/"] # general github projects
+ # general github projects
   path = ~/Projects/.gitconfig
 [includeIf "gitdir:~/Projects/work/"] # work projects
+ # work projects
   path = ~/Projects/work/.gitconfig
 [includeIf "gitdir:~/Projects/gfm/"]
   path = ~/Projects/gfm/.gitconfig
